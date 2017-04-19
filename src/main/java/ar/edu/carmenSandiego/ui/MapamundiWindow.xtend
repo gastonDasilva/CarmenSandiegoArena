@@ -4,87 +4,107 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.bindings.NotNullObservable
 import ar.gaston.carmenSanDiego.Pais
 import AplicationModel.Mapamundi
 import org.uqbar.arena.windows.Dialog
+import org.uqbar.arena.layout.VerticalLayout
+import org.uqbar.arena.layout.ColumnLayout
+import org.uqbar.arena.widgets.List
+import org.uqbar.arena.bindings.PropertyAdapter
+import org.uqbar.arena.widgets.tables.Table
+import org.uqbar.arena.widgets.tables.Column
+import ar.gaston.carmenSanDiego.LugarDeInteres
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import AplicationModel.PaisAppModel
 
 class MapamundiWindow extends  SimpleWindow<Mapamundi> {
 	
 	new(WindowOwner owner) {
 		super(owner, new Mapamundi)
 	}
-	
 	override def createMainTemplate(Panel mainPanel) {
 		title = "Mapamundi"
-		super.createMainTemplate(mainPanel)
-
-		this.createGrillaPais(mainPanel)
-		this.createGridActions(mainPanel)
+		mainPanel.layout = new VerticalLayout
+		val Panel contentPanel = new Panel(mainPanel)
+		contentPanel.layout = new ColumnLayout(2)
+		this.crearListadoPais(contentPanel)
+		this.crearEdicionDePaisSeleccionado(contentPanel)
 	}
 		
 	override protected createFormPanel(Panel mainPanel) {
-		val form = new Panel(mainPanel).layout = new HorizontalLayout
-		new Label(form).text = "Paises"
-		new Table<Pais>(form, typeof(Pais)) => [
-						items <=> "paises"
-						value <=> "paisSeleccionado"
-						]
 	}
 	
-	def createGrillaPais(Panel mainPanel) {
-		
-		new Label(mainPanel) => [
-			value <=> "Pais.nombre"
-		]
-		new Table(mainPanel, typeof(Pais)) => [
-			width = 600
-			height = 400
-			items <=> "Pais.caracteristicas"
-		]
-		
-	    new Table(mainPanel, typeof(Pais)) => [
-			width = 600
-			height = 400
-			items <=> "Pais.conexiones"
-		]
-		
-		new Table(mainPanel, typeof(Pais)) => [
-			width = 600
-			height = 400
-			items <=> "Pais.lugaresDeInteres"
-		]
-	}
-	
-		def void createGridActions(Panel mainPanel) {
-		val elementSelected = new NotNullObservable("paiSeleccionado")
-		val actionsPanel = new Panel(mainPanel).layout = new HorizontalLayout
-		
-		new Button(actionsPanel) => [
+	def crearListadoPais(Panel owner) {
+		val Panel panelDeListadoDePaises = new Panel(owner)
+		new Label(panelDeListadoDePaises).text = "Paises"
+		new List<Pais>(panelDeListadoDePaises) => [
+				(items <=> "paises").adapter = new PropertyAdapter(Pais, "nombrePais")
+				height = 150
+	    		width = 130
+				value <=> "paisSeleccionado"
+			]
+		//val Panel panelbotones = new Panel(owner)	
+		val elementSelected = new NotNullObservable("paisSeleccionado")
+		new Button(panelDeListadoDePaises) => [
 			caption = "Eliminar"
 			onClick([|modelObject.eliminarPaisSeleccionado])
 			bindEnabled(elementSelected)
 		]
 		
-		new Button(actionsPanel) => [
+		new Button(panelDeListadoDePaises) => [
 			caption = "Editar"
 			onClick([|this.editarPais])
 			bindEnabled(elementSelected)
 		]
 		
-		new Button(actionsPanel) => [
-			caption = "nuevoPais"
+		new Button(panelDeListadoDePaises) => [
+			caption = "Nuevo"
 			onClick([|this.nuevoPais])
-			bindEnabled(elementSelected)
 		]
 		
 	}
 	
+	def crearEdicionDePaisSeleccionado(Panel owner) {
+		val Panel nombrePaisPanel = new Panel(owner)
+		nombrePaisPanel.layout = new VerticalLayout //ColumnLayout(2)
+		new Label(nombrePaisPanel).text = "Nombre:"
+		new Label(nombrePaisPanel)=>[
+			value <=> "paisSeleccionado.nombrePais"
+			fontSize = 13
+		]
+		
+		/*val Panel PaisPanel = new Panel(owner)
+		PaisPanel.layout = new VerticalLayout*/
+		new Label(nombrePaisPanel).text = "Caracteristicas"
+		val tablaDeCaracteristicas = new Table<Pais>(nombrePaisPanel, Pais) => [
+			items <=> "paisSeleccionado"
+		]
+		new Column(tablaDeCaracteristicas)=>[
+			bindContentsToProperty("caracteristicasDelPais")
+			title = "Caracteristicas"
+		]
+		new Label(nombrePaisPanel).text = "Conexiones"
+		val tablaDeConexiones = new Table<Pais>(nombrePaisPanel, Pais) => [
+			items <=> "paisSeleccionado.paisConexiones"
+		]
+		new Column(tablaDeConexiones)=>[
+			bindContentsToProperty("nombrePais")
+			title = "Conexiones"
+		]
+		new Label(nombrePaisPanel).text = "Lugares De Interes"
+		val tablaDeLugares = new Table<LugarDeInteres>(nombrePaisPanel, LugarDeInteres) =>[
+			items <=> "paisSeleccionado.lugaresDeInteres"
+		]
+		new Column(tablaDeLugares)=>[
+			bindContentsToProperty("nombreLugar")
+			title = "Lugares De Interes"
+		]
+				
+		}	
 	def nuevoPais() {
-		this.openDialog(new CrearPaisWindow(this)
+		this.openDialog(new CrearPaisWindow(this, this.modelObject))
 	}
 	
 	def openDialog(Dialog<?> dialog) {
@@ -92,14 +112,11 @@ class MapamundiWindow extends  SimpleWindow<Mapamundi> {
 	}
 	
 	def editarPais() {
-		this.openDialog(new EditarPaisWindow(this, modelObject.paisSeleccionado))
+		this.openDialog(new EditarPaisWindow(this, this.modelObject))
 	}
 	
 	override protected addActions(Panel actionsPanel) {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
-	
-	
-	}
-	
 }
+	

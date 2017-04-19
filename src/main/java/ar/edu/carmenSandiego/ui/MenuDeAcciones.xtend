@@ -1,62 +1,40 @@
 package ar.edu.carmenSandiego.ui
 
-import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.windows.Window
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.windows.MainWindow
+import org.uqbar.arena.layout.ColumnLayout
+import AplicationModel.MenuAccionesAppModel
 
-class MenuDeAcciones extends SimpleWindow<MenuDeAcciones>{
+class MenuDeAcciones extends MainWindow<MenuAccionesAppModel>{
 	
-	
-	new(WindowOwner parent, MenuDeAcciones model) {
-		super(parent, model)
+	new(MenuAccionesAppModel model) {
+		super(model)
 	}
 	
-	override def createMainTemplate(Panel mainPanel) {
+	override createContents(Panel mainPanel) {
 		title = "¿Dónde Está CarmenSandiego?"
-		taskDescription = "¿Qué haremos ahora detective?"
-
-		super.createMainTemplate(mainPanel)
-	}
-	
-	override protected addActions(Panel actionsPanel) {
-		new Button(actionsPanel) => [
+		new Label(mainPanel).text = "¿Qué haremos ahora Detective?"
+		val selecPanel = new Panel(mainPanel).layout = new ColumnLayout(3)
+		new Button(selecPanel) => [
 			caption = "Resolver Misterio"
-			onClick([|this.resolverMisterio])
+			width = 100
+			onClick [ | new IniciarJuegoWindow(this).open ]
 		]
-		new Button(actionsPanel) => [
+		new Button(selecPanel) => [
 			caption = "Mapamundi"
-			onClick([|this.mostrarMapamundi])
+			width = 100
+			onClick [ | new MapamundiWindow(this).open ]
 		]
-		new Button(actionsPanel) => [
+		new Button(selecPanel) => [
 			caption = "Expedientes"
-			onClick([|this.mostrarExpedientes])
+			width = 100
+			onClick [ | new ExpedientesWindow(this).open ]
 		]
 	}
+	def static main(String[] args) {
+		new MenuDeAcciones(new MenuAccionesAppModel).startApplication
 	
-	// ********************************************************
-	// ** Acciones
-	// ********************************************************
-	def void mostrarExpedientes() {
-	 this.openDialog(new ExpedientesWindow(this))
-	}
-		
-	def void mostrarMapamundi() {
-		this.openDialog(new MapamundiWindow(this))
-	}
-	
-	def openDialog(Window window) {
-		window.open
-	}
-	
-	def void resolverMisterio() {
-		this.openDialog(new ResolverMisterioWindow(this))
-	}
-	
-	
-	override protected createFormPanel(Panel mainPanel) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-	
+}
 }

@@ -20,6 +20,7 @@
 		<version>3.6.2</version>
 	</parent>
 	
+	
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -32,5 +33,10 @@
 			<artifactId>carmenSanDiego-domain-xtend</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+          <groupId>org.uqbar-project</groupId>
+          <artifactId>arena-xtend</artifactId>
+          <version>3.6.1</version>
+       </dependency>
   </dependencies>
 </project>
