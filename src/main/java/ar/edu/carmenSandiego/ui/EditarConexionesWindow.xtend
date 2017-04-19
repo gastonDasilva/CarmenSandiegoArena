@@ -15,6 +15,7 @@ import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Selector
 import org.uqbar.arena.layout.ColumnLayout
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+
 class EditarConexionesWindow extends TransactionalDialog<PaisAppModel> {
 	
 	new(WindowOwner owner, PaisAppModel model) {

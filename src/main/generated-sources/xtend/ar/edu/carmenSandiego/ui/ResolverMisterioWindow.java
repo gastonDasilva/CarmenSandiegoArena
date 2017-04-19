@@ -1,13 +1,12 @@
 package ar.edu.carmenSandiego.ui;
 
-import AplicationModel.ResolverMisterioAppModel;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 
 @SuppressWarnings("all")
-public class ResolverMisterioWindow extends SimpleWindow<ResolverMisterioAppModel> {
-  public ResolverMisterioWindow(final WindowOwner owner, final ResolverMisterioAppModel model) {
+public class ResolverMisterioWindow /* extends /* SimpleWindow<ResolverMisterioAppModel> */  */{
+  public ResolverMisterioWindow(final WindowOwner owner, final /* ResolverMisterioAppModel */Object model) {
     super(owner, model);
   }
   
@@ -16,6 +15,9 @@ public class ResolverMisterioWindow extends SimpleWindow<ResolverMisterioAppMode
       + "\nThe method or field open is undefined for the type OrdenDeArrestoWindow"
       + "\nviajarWindow cannot be resolved."
       + "\nInvalid number of arguments. The constructor OrdenDeArrestoWindow() is not applicable for the arguments (ResolverMisterioWindow,ResolverMisterioAppModel)"
+      + "\ncasoRandom cannot be resolved"
+      + "\ngetNombreCaso cannot be resolved"
+      + "\ndevolverNombreDeVillanoSiExiste cannot be resolved"
       + "\nopen cannot be resolved");
   }
   
@@ -27,6 +29,9 @@ public class ResolverMisterioWindow extends SimpleWindow<ResolverMisterioAppMode
     throw new Error("Unresolved compilation problems:"
       + "\nlugaresWindow cannot be resolved."
       + "\nThe method or field v is undefined"
+      + "\npaisDondeEstoy cannot be resolved"
+      + "\ngetPrimerLugarDeInteres cannot be resolved"
+      + "\nnombreLugar cannot be resolved"
       + "\nopen cannot be resolved");
   }
   
