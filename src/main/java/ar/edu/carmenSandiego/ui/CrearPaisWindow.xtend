@@ -4,13 +4,14 @@ import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Button
 import AplicationModel.Mapamundi
+import ar.gaston.carmenSanDiego.Pais
 
 class CrearPaisWindow extends EditarPaisWindow {
-	
-	new(WindowOwner owner, Mapamundi model) {
-		super(owner, model)
+
+	new(WindowOwner owner, CrearEditarPaisAppModel model) {
+		super(owner, model)	 
 	}
-	
+		
 	override defaultTitle() {
 		"Mapamundi -Nuevo Pais"
 	}

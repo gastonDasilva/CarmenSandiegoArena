@@ -1,28 +1,28 @@
 package ar.edu.carmenSandiego.ui
 
-import org.uqbar.arena.windows.WindowOwner
+import AplicationModel.PaisAppModel
+import ar.gaston.carmenSanDiego.LugarDeInteres
 import ar.gaston.carmenSanDiego.Pais
-import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.List
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Dialog
-import org.uqbar.arena.widgets.tables.Column
-import AplicationModel.PaisAppModel
-import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import ar.gaston.carmenSanDiego.LugarDeInteres
-import AplicationModel.Mapamundi
-import org.uqbar.arena.aop.windows.TransactionalDialog
+import org.uqbar.arena.windows.WindowOwner
 
-class EditarPaisWindow extends TransactionalDialog<Mapamundi>{
-	
-	new(WindowOwner owner, Mapamundi model) {
-		super(owner, model)
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+
+class EditarPaisWindow extends Dialog<CrearEditarPaisAppModel>{
+
+	new(WindowOwner owner, CrearEditarPaisAppModel model) {
+		super(owner, model)	 
 		title = defaultTitle
 	}
-	
+		
 	def defaultTitle() {
 		"Mapamundi - Editar Pais"
 	}
@@ -32,42 +32,38 @@ class EditarPaisWindow extends TransactionalDialog<Mapamundi>{
 		new Label(form).text = "Nombre:"
 		
 		new TextBox(form) => [
-			value <=> "paisSeleccionado.nombrePais"
+			value <=> "pais.nombrePais"
 			width = 200	
 		]
 		new Label(form).text = "Características"
-		
+ 		
 		new Button(form) => [
 			caption = "Editar Caracteristicas"
 			onClick [|this.editarCaracteristicas]
 			setAsDefault
 			disableOnError	
-		]
+			]
 		
 		//val caracteristicasPanel = new Panel(mainPanel).layout = new VerticalLayout
-		val tablaDeCaracteristicas = new Table<Pais>(mainPanel, Pais) => [
-			width = 600
-			height = 400
-			items <=> "paisSeleccionado.caracteristicasDelPais"
-		]
-		new Column(tablaDeCaracteristicas)=>[
-			bindContentsToProperty("caracteristicasDelPais")
-			title = "Caracteristicas"
-			fixedSize = 200
-		]
+				
+		new List<String>(mainPanel) => [
+				(items <=> "pais.caracteristicasDelPais")
+				height = 90
+				width = 80
+				]
 		
 		val form2 = new Panel(mainPanel).layout = new ColumnLayout(2)
 		new Label(form2).text = "Conexiones"
-		new Button(form2) => [
-			caption = "Editar Conexiones"
-			onClick [|this.editarConexiones]
-			setAsDefault
-			disableOnError	
-		]
+//		new Button(form2) => [
+//			caption = "Editar Conexiones"
+//			onClick [|this.editarConexiones]
+//			setAsDefault
+//			disableOnError	
+//		]
 		
 		//val ConexionesPanel = new Panel(mainPanel).layout = new VerticalLayout
-		val tablaDeConexiones = new Table<Pais>(mainPanel, Pais) => [
-			items <=> "paisSeleccionado.paisConexiones"
+	 	val tablaDeConexiones = new Table<Pais>(mainPanel, Pais) => [
+			items <=> "pais.paisConexiones"
 		] 
 		new Column(tablaDeConexiones)=>[
 			title = "Conexiones"
@@ -76,15 +72,15 @@ class EditarPaisWindow extends TransactionalDialog<Mapamundi>{
 		
 		val form3 = new Panel(mainPanel).layout = new ColumnLayout(2)
 		new Label(form3).text = "Lugares De Interes"
-		new Button(form3) => [
-			caption = "Editar Lugares"
-			onClick [|this.editarLugaresDeInteres]
-			setAsDefault
-			disableOnError	
-		]
+//		new Button(form3) => [
+//			caption = "Editar Lugares"
+//			onClick [|this.editarLugaresDeInteres]
+//			setAsDefault
+//			disableOnError	
+//		]
 		//val lugaresPanel = new Panel(mainPanel).layout = new VerticalLayout
 		val tablaDeLugares = new Table<LugarDeInteres>(mainPanel, LugarDeInteres) =>[
-			items <=> "paisSeleccionado.lugaresDeInteres"
+			items <=> "pais.lugaresDeInteres"
 		]
 		new Column(tablaDeLugares)=>[
 			bindContentsToProperty("nombreLugar")
@@ -102,6 +98,8 @@ class EditarPaisWindow extends TransactionalDialog<Mapamundi>{
 			new Button(mainPanel) => [
 			caption = "Aceptar"
 			onClick [|
+				this.modelObject.editarPais
+				
 				this.close
 			]
 		]
@@ -114,20 +112,20 @@ class EditarPaisWindow extends TransactionalDialog<Mapamundi>{
 	// ** Acciones
 	// ********************************************************
 	
-	def editarLugaresDeInteres() {
-		this.openDialog(new EditarLugaresDeInteresWindow(this, new PaisAppModel(modelObject.paisSeleccionado)))
-	}
+//	def editarLugaresDeInteres() {
+//		this.openDialog(new EditarLugaresDeInteresWindow(this, new PaisAppModel(modelObject.pais)))
+//	}
 	
 	def openDialog(Dialog<?> dialog) {
 		dialog.open
 	}
 	 
-	def editarConexiones() {
-		this.openDialog(new EditarConexionesWindow(this, new PaisAppModel(modelObject.paisSeleccionado)))
-	}
-	
+//	def editarConexiones() {
+//		this.openDialog(new EditarConexionesWindow(this, new PaisAppModel(modelObject.pais)))
+//	}
+//	
 	def editarCaracteristicas(){
-		this.openDialog(new EditarCaracteristicasWindow(this, new PaisAppModel(modelObject.paisSeleccionado)))
+		this.openDialog(new EditarCaracteristicasWindow(this, new PaisAppModel(modelObject.pais)))
 	}
 }	
 	

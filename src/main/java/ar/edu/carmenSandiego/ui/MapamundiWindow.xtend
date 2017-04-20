@@ -21,6 +21,8 @@ import AplicationModel.PaisAppModel
 
 class MapamundiWindow extends  SimpleWindow<Mapamundi> {
 	
+
+	
 	new(WindowOwner owner) {
 		super(owner, new Mapamundi)
 	}
@@ -44,6 +46,7 @@ class MapamundiWindow extends  SimpleWindow<Mapamundi> {
 				height = 150
 	    		width = 130
 				value <=> "paisSeleccionado"
+				allowNull = true
 			]
 		//val Panel panelbotones = new Panel(owner)	
 		val elementSelected = new NotNullObservable("paisSeleccionado")
@@ -54,6 +57,7 @@ class MapamundiWindow extends  SimpleWindow<Mapamundi> {
 		]
 		
 		new Button(panelDeListadoDePaises) => [
+			
 			caption = "Editar"
 			onClick([|this.editarPais])
 			bindEnabled(elementSelected)
@@ -79,7 +83,7 @@ class MapamundiWindow extends  SimpleWindow<Mapamundi> {
 		PaisPanel.layout = new VerticalLayout*/
 		new Label(nombrePaisPanel).text = "Caracteristicas"
 		val tablaDeCaracteristicas = new Table<Pais>(nombrePaisPanel, Pais) => [
-			items <=> "paisSeleccionado"
+			items <=> "paisSeleccionado.caracteristicasDelPais"
 		]
 		new Column(tablaDeCaracteristicas)=>[
 			bindContentsToProperty("caracteristicasDelPais")
@@ -104,7 +108,7 @@ class MapamundiWindow extends  SimpleWindow<Mapamundi> {
 				
 		}	
 	def nuevoPais() {
-		this.openDialog(new CrearPaisWindow(this, this.modelObject))
+		this.openDialog(new CrearPaisWindow(this, new CrearEditarPaisAppModel(this.modelObject, new Pais)))
 	}
 	
 	def openDialog(Dialog<?> dialog) {
@@ -112,7 +116,7 @@ class MapamundiWindow extends  SimpleWindow<Mapamundi> {
 	}
 	
 	def editarPais() {
-		this.openDialog(new EditarPaisWindow(this, this.modelObject))
+		this.openDialog(new EditarPaisWindow(this, new CrearEditarPaisAppModel(this.modelObject, this.modelObject.paisSeleccionado)))
 	}
 	
 	override protected addActions(Panel actionsPanel) {

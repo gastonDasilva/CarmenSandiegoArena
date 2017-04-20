@@ -1,5 +1,6 @@
 package ar.edu.carmenSandiego.ui;
 
+import AplicationModel.MenuAccionesAppModel;
 import ar.edu.carmenSandiego.ui.ExpedientesWindow;
 import ar.edu.carmenSandiego.ui.IniciarJuegoWindow;
 import ar.edu.carmenSandiego.ui.MapamundiWindow;
@@ -13,8 +14,8 @@ import org.uqbar.arena.windows.MainWindow;
 import org.uqbar.lacar.ui.model.Action;
 
 @SuppressWarnings("all")
-public class MenuDeAcciones /* extends /* MainWindow<MenuAccionesAppModel> */  */{
-  public MenuDeAcciones(final /* MenuAccionesAppModel */Object model) {
+public class MenuDeAcciones extends MainWindow<MenuAccionesAppModel> {
+  public MenuDeAcciones(final MenuAccionesAppModel model) {
     super(model);
   }
   
@@ -73,7 +74,8 @@ public class MenuDeAcciones /* extends /* MainWindow<MenuAccionesAppModel> */  *
   }
   
   public static void main(final String[] args) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nMenuAccionesAppModel cannot be resolved.");
+    MenuAccionesAppModel _menuAccionesAppModel = new MenuAccionesAppModel();
+    MenuDeAcciones _menuDeAcciones = new MenuDeAcciones(_menuAccionesAppModel);
+    _menuDeAcciones.startApplication();
   }
 }

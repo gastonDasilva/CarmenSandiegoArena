@@ -1,11 +1,16 @@
 package ar.edu.carmenSandiego.ui;
 
+import AplicationModel.ExpedientesAppModel;
+import AplicationModel.VillanoAppModel;
 import ar.edu.carmenSandiego.ui.CrearVillanoWindow;
+import ar.edu.carmenSandiego.ui.EditarVillanoWindow;
+import ar.gaston.carmenSanDiego.Villano;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.uqbar.arena.bindings.NotNullObservable;
 import org.uqbar.arena.bindings.ObservableItems;
 import org.uqbar.arena.bindings.ObservableValue;
+import org.uqbar.arena.bindings.PropertyAdapter;
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Button;
@@ -21,12 +26,14 @@ import org.uqbar.arena.xtend.ArenaXtendExtensions;
 import org.uqbar.lacar.ui.model.Action;
 import org.uqbar.lacar.ui.model.ControlBuilder;
 import org.uqbar.lacar.ui.model.ListBuilder;
+import org.uqbar.lacar.ui.model.bindings.Binding;
 
 @SuppressWarnings("all")
-public class ExpedientesWindow /* extends /* SimpleWindow<ExpedientesAppModel> */  */{
+public class ExpedientesWindow extends SimpleWindow<ExpedientesAppModel> {
   public ExpedientesWindow(final WindowOwner owner) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nExpedientesAppModel cannot be resolved.");
+    super(owner, new ExpedientesAppModel());
+    String _defaultTitle = this.defaultTitle();
+    this.setTitle(_defaultTitle);
   }
   
   public String defaultTitle() {
@@ -44,9 +51,30 @@ public class ExpedientesWindow /* extends /* SimpleWindow<ExpedientesAppModel> *
   }
   
   public Button crearListadoVillanos(final Panel owner) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nVillano cannot be resolved to a type."
-      + "\nThe method or field Villano is undefined");
+    Button _xblockexpression = null;
+    {
+      final Panel panelDeListadoDePaises = new Panel(owner);
+      HorizontalLayout _horizontalLayout = new HorizontalLayout();
+      panelDeListadoDePaises.setLayout(_horizontalLayout);
+      Label _label = new Label(panelDeListadoDePaises);
+      _label.setText("Villanos");
+      List<Villano> _list = new List<Villano>(panelDeListadoDePaises);
+      final Procedure1<List<Villano>> _function = new Procedure1<List<Villano>>() {
+        public void apply(final List<Villano> it) {
+          ObservableItems<Selector<Villano>, Villano, ListBuilder<Villano>> _items = it.items();
+          Binding _spaceship = ArenaXtendExtensions.operator_spaceship(_items, "villanos");
+          PropertyAdapter _propertyAdapter = new PropertyAdapter(Villano.class, "nombre");
+          _spaceship.setAdapter(_propertyAdapter);
+          it.setHeight(150);
+          it.setWidth(130);
+          ObservableValue<Control, ControlBuilder> _value = it.<ControlBuilder>value();
+          ArenaXtendExtensions.operator_spaceship(_value, "villanoSeleccionado");
+        }
+      };
+      ObjectExtensions.<List<Villano>>operator_doubleArrow(_list, _function);
+      _xblockexpression = this.crearBotoneraNuevoYEditar(owner);
+    }
+    return _xblockexpression;
   }
   
   public Button crearBotoneraNuevoYEditar(final Panel owner) {
@@ -154,9 +182,11 @@ public class ExpedientesWindow /* extends /* SimpleWindow<ExpedientesAppModel> *
   }
   
   public void editarVillano() {
-    throw new Error("Unresolved compilation problems:"
-      + "\nVillanoAppModel cannot be resolved."
-      + "\nvillanoSeleccionado cannot be resolved");
+    ExpedientesAppModel _modelObject = this.getModelObject();
+    Villano _villanoSeleccionado = _modelObject.getVillanoSeleccionado();
+    VillanoAppModel _villanoAppModel = new VillanoAppModel(_villanoSeleccionado);
+    EditarVillanoWindow _editarVillanoWindow = new EditarVillanoWindow(this, _villanoAppModel);
+    this.openDialog(_editarVillanoWindow);
   }
   
   protected void addActions(final Panel actionsPanel) {

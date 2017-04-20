@@ -57,7 +57,7 @@ class ResolverMisterioWindow extends SimpleWindow<ResolverMisterioAppModel>{
 		new Button(panel) => [
 			caption = this.modelObject.paisDondeEstoy.getPrimerLugarDeInteres.nombreLugar
 			onClick([| new lugaresWindow(this,this.modelObject ).open ])
-		]   v
+		]   
 	}
 	
 	override protected addActions(Panel actionsPanel) {
