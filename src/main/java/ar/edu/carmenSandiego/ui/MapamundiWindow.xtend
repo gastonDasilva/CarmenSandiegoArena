@@ -82,13 +82,20 @@ class MapamundiWindow extends  SimpleWindow<Mapamundi> {
 		/*val Panel PaisPanel = new Panel(owner)
 		PaisPanel.layout = new VerticalLayout*/
 		new Label(nombrePaisPanel).text = "Caracteristicas"
-		val tablaDeCaracteristicas = new Table<Pais>(nombrePaisPanel, Pais) => [
+		
+		new List(nombrePaisPanel) => [
 			items <=> "paisSeleccionado.caracteristicasDelPais"
+			width = 200
+			//bindValueToProperty("paisSeleccionado.caracteristicasDelPais")
 		]
-		new Column(tablaDeCaracteristicas)=>[
-			bindContentsToProperty("caracteristicasDelPais")
-			title = "Caracteristicas"
-		]
+//		val tablaDeCaracteristicas = new Table<Pais>(nombrePaisPanel, Pais) => [
+//			items <=> "paisSeleccionado.caracteristicasDelPais"
+//		]
+//		new Column(tablaDeCaracteristicas)=>[
+//			bindContentsToProperty("caracteristicasDelPais")
+//			title = "Caracteristicas"
+//		]
+		/*
 		new Label(nombrePaisPanel).text = "Conexiones"
 		val tablaDeConexiones = new Table<Pais>(nombrePaisPanel, Pais) => [
 			items <=> "paisSeleccionado.paisConexiones"
@@ -104,7 +111,7 @@ class MapamundiWindow extends  SimpleWindow<Mapamundi> {
 		new Column(tablaDeLugares)=>[
 			bindContentsToProperty("nombreLugar")
 			title = "Lugares De Interes"
-		]
+		]*/
 				
 		}	
 	def nuevoPais() {

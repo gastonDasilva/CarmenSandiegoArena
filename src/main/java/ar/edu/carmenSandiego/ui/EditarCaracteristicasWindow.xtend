@@ -1,6 +1,5 @@
 package ar.edu.carmenSandiego.ui
 
-import org.uqbar.arena.aop.windows.TransactionalDialog
 import AplicationModel.PaisAppModel
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
@@ -13,8 +12,9 @@ import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.TextBox
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.windows.Dialog
 
-class EditarCaracteristicasWindow extends TransactionalDialog<PaisAppModel> {
+class EditarCaracteristicasWindow extends Dialog<PaisAppModel> {
 	
 	new(WindowOwner owner, PaisAppModel model) {
 		super(owner, model)
@@ -27,13 +27,18 @@ class EditarCaracteristicasWindow extends TransactionalDialog<PaisAppModel> {
        new List<String>(mainPanel) => [
 				(items <=> "paisSelec.caracteristicasDelPais")
 				height = 150
-				width = 130
+				width = 200
 				value <=> "caracteristicaASacar"
 			]
+			
        this.createGridActions(mainPanel)
+       
        val selecPanel = new Panel(mainPanel).layout = new ColumnLayout(2)
+       
        new TextBox(selecPanel).value <=> "caracteristicaAAgregar"
+       
        val elementSelected = new NotNullObservable("caracteristicaAAgregar")
+	   
 	   new Button(selecPanel) => [
 			caption = "Agregar"
 			onClick([|this.modelObject.agregarCaracteristicaSelec()])

@@ -4,7 +4,6 @@ import AplicationModel.Mapamundi;
 import ar.edu.carmenSandiego.ui.CrearEditarPaisAppModel;
 import ar.edu.carmenSandiego.ui.CrearPaisWindow;
 import ar.edu.carmenSandiego.ui.EditarPaisWindow;
-import ar.gaston.carmenSanDiego.LugarDeInteres;
 import ar.gaston.carmenSanDiego.Pais;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
@@ -20,8 +19,6 @@ import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
-import org.uqbar.arena.widgets.tables.Column;
-import org.uqbar.arena.widgets.tables.Table;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
@@ -29,9 +26,7 @@ import org.uqbar.arena.xtend.ArenaXtendExtensions;
 import org.uqbar.lacar.ui.model.Action;
 import org.uqbar.lacar.ui.model.ControlBuilder;
 import org.uqbar.lacar.ui.model.ListBuilder;
-import org.uqbar.lacar.ui.model.TableBuilder;
 import org.uqbar.lacar.ui.model.bindings.Binding;
-import org.uqbar.lacar.ui.model.bindings.ViewObservable;
 
 @SuppressWarnings("all")
 public class MapamundiWindow extends SimpleWindow<Mapamundi> {
@@ -121,8 +116,8 @@ public class MapamundiWindow extends SimpleWindow<Mapamundi> {
     return _xblockexpression;
   }
   
-  public Column<LugarDeInteres> crearEdicionDePaisSeleccionado(final Panel owner) {
-    Column<LugarDeInteres> _xblockexpression = null;
+  public List<Object> crearEdicionDePaisSeleccionado(final Panel owner) {
+    List<Object> _xblockexpression = null;
     {
       final Panel nombrePaisPanel = new Panel(owner);
       VerticalLayout _verticalLayout = new VerticalLayout();
@@ -140,58 +135,15 @@ public class MapamundiWindow extends SimpleWindow<Mapamundi> {
       ObjectExtensions.<Label>operator_doubleArrow(_label_1, _function);
       Label _label_2 = new Label(nombrePaisPanel);
       _label_2.setText("Caracteristicas");
-      Table<Pais> _table = new Table<Pais>(nombrePaisPanel, Pais.class);
-      final Procedure1<Table<Pais>> _function_1 = new Procedure1<Table<Pais>>() {
-        public void apply(final Table<Pais> it) {
-          ViewObservable<Table<Pais>, TableBuilder<Pais>> _items = it.items();
+      List<Object> _list = new List<Object>(nombrePaisPanel);
+      final Procedure1<List<Object>> _function_1 = new Procedure1<List<Object>>() {
+        public void apply(final List<Object> it) {
+          ObservableItems<Selector<Object>, Object, ListBuilder<Object>> _items = it.items();
           ArenaXtendExtensions.operator_spaceship(_items, "paisSeleccionado.caracteristicasDelPais");
+          it.setWidth(200);
         }
       };
-      final Table<Pais> tablaDeCaracteristicas = ObjectExtensions.<Table<Pais>>operator_doubleArrow(_table, _function_1);
-      Column<Pais> _column = new Column<Pais>(tablaDeCaracteristicas);
-      final Procedure1<Column<Pais>> _function_2 = new Procedure1<Column<Pais>>() {
-        public void apply(final Column<Pais> it) {
-          it.bindContentsToProperty("caracteristicasDelPais");
-          it.setTitle("Caracteristicas");
-        }
-      };
-      ObjectExtensions.<Column<Pais>>operator_doubleArrow(_column, _function_2);
-      Label _label_3 = new Label(nombrePaisPanel);
-      _label_3.setText("Conexiones");
-      Table<Pais> _table_1 = new Table<Pais>(nombrePaisPanel, Pais.class);
-      final Procedure1<Table<Pais>> _function_3 = new Procedure1<Table<Pais>>() {
-        public void apply(final Table<Pais> it) {
-          ViewObservable<Table<Pais>, TableBuilder<Pais>> _items = it.items();
-          ArenaXtendExtensions.operator_spaceship(_items, "paisSeleccionado.paisConexiones");
-        }
-      };
-      final Table<Pais> tablaDeConexiones = ObjectExtensions.<Table<Pais>>operator_doubleArrow(_table_1, _function_3);
-      Column<Pais> _column_1 = new Column<Pais>(tablaDeConexiones);
-      final Procedure1<Column<Pais>> _function_4 = new Procedure1<Column<Pais>>() {
-        public void apply(final Column<Pais> it) {
-          it.bindContentsToProperty("nombrePais");
-          it.setTitle("Conexiones");
-        }
-      };
-      ObjectExtensions.<Column<Pais>>operator_doubleArrow(_column_1, _function_4);
-      Label _label_4 = new Label(nombrePaisPanel);
-      _label_4.setText("Lugares De Interes");
-      Table<LugarDeInteres> _table_2 = new Table<LugarDeInteres>(nombrePaisPanel, LugarDeInteres.class);
-      final Procedure1<Table<LugarDeInteres>> _function_5 = new Procedure1<Table<LugarDeInteres>>() {
-        public void apply(final Table<LugarDeInteres> it) {
-          ViewObservable<Table<LugarDeInteres>, TableBuilder<LugarDeInteres>> _items = it.items();
-          ArenaXtendExtensions.operator_spaceship(_items, "paisSeleccionado.lugaresDeInteres");
-        }
-      };
-      final Table<LugarDeInteres> tablaDeLugares = ObjectExtensions.<Table<LugarDeInteres>>operator_doubleArrow(_table_2, _function_5);
-      Column<LugarDeInteres> _column_2 = new Column<LugarDeInteres>(tablaDeLugares);
-      final Procedure1<Column<LugarDeInteres>> _function_6 = new Procedure1<Column<LugarDeInteres>>() {
-        public void apply(final Column<LugarDeInteres> it) {
-          it.bindContentsToProperty("nombreLugar");
-          it.setTitle("Lugares De Interes");
-        }
-      };
-      _xblockexpression = ObjectExtensions.<Column<LugarDeInteres>>operator_doubleArrow(_column_2, _function_6);
+      _xblockexpression = ObjectExtensions.<List<Object>>operator_doubleArrow(_list, _function_1);
     }
     return _xblockexpression;
   }

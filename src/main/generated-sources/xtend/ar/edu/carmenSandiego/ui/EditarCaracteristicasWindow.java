@@ -3,7 +3,6 @@ package ar.edu.carmenSandiego.ui;
 import AplicationModel.PaisAppModel;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
-import org.uqbar.arena.aop.windows.TransactionalDialog;
 import org.uqbar.arena.bindings.NotNullObservable;
 import org.uqbar.arena.bindings.ObservableItems;
 import org.uqbar.arena.bindings.ObservableValue;
@@ -17,6 +16,7 @@ import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.TextBox;
+import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.xtend.ArenaXtendExtensions;
 import org.uqbar.lacar.ui.model.Action;
@@ -24,7 +24,7 @@ import org.uqbar.lacar.ui.model.ControlBuilder;
 import org.uqbar.lacar.ui.model.ListBuilder;
 
 @SuppressWarnings("all")
-public class EditarCaracteristicasWindow extends TransactionalDialog<PaisAppModel> {
+public class EditarCaracteristicasWindow extends Dialog<PaisAppModel> {
   public EditarCaracteristicasWindow(final WindowOwner owner, final PaisAppModel model) {
     super(owner, model);
     this.setTitle("Editar Caracteristicas");
@@ -41,7 +41,7 @@ public class EditarCaracteristicasWindow extends TransactionalDialog<PaisAppMode
         ObservableItems<Selector<String>, String, ListBuilder<String>> _items = it.items();
         ArenaXtendExtensions.operator_spaceship(_items, "paisSelec.caracteristicasDelPais");
         it.setHeight(150);
-        it.setWidth(130);
+        it.setWidth(200);
         ObservableValue<Control, ControlBuilder> _value = it.<ControlBuilder>value();
         ArenaXtendExtensions.operator_spaceship(_value, "caracteristicaASacar");
       }
