@@ -33,8 +33,6 @@ class ResolverMisterioWindow extends SimpleWindow<ResolverMisterioAppModel>{
 		
 	}
 	def crearPanelPrinciapal(Panel panel){
-		/*val Panel panel1 = new Panel(panel)
-		panel1.layout =new ColumnLayout(2)*/
 		val Panel botonPanel = new Panel(panel)
 		botonPanel.layout = new VerticalLayout
 		new Label(botonPanel).text = "Estás En:"
@@ -42,8 +40,6 @@ class ResolverMisterioWindow extends SimpleWindow<ResolverMisterioAppModel>{
 			value <=> "paisDondeEstoy.nombrePais"
 			fontSize = 13
 		]
-		/*val Panel botonPanel = new Panel(panel)
-		botonPanel.layout = new VerticalLayout*/
 		new Button(botonPanel) => [
 			caption = "Orden De Arresto"
 			onClick([| new OrdenDeArrestoWindow(this,this.modelObject ).open ])
@@ -94,19 +90,19 @@ class ResolverMisterioWindow extends SimpleWindow<ResolverMisterioAppModel>{
 		val botoneraPanel = new Panel(contentPanel)
 		botoneraPanel.layout = new HorizontalLayout
 		new Button(botoneraPanel) => [
-			caption = this.modelObject.getNombrePrimerLugarDeInteres
+			caption = this.modelObject.primerLugarNombre
 			onClick([| new LugaresWindow(this,new LugaresDeInteresAppModel(this.modelObject,this.modelObject.paisDondeEstoy.getPrimerLugarDeInteres)).open ])
 		]
 		val botoneraPanel2 = new Panel(contentPanel)
 		botoneraPanel2.layout = new HorizontalLayout
 		new Button(botoneraPanel2) => [
-			caption = this.modelObject.getNombreSegundoLugarDeInteres
+			caption = this.modelObject.segundoLugarNombre
 			onClick([| new LugaresWindow(this,new LugaresDeInteresAppModel(this.modelObject,this.modelObject.paisDondeEstoy.getSegundoLugarDeInteres)).open ])
 		]
 		val botoneraPanel3 = new Panel(contentPanel)
 		botoneraPanel3.layout = new HorizontalLayout
 		new Button(botoneraPanel3) => [
-			caption = this.modelObject.getNombreTercerLugarDeInteres
+			caption = this.modelObject.tercerLugarNombre
 		    onClick([| new LugaresWindow(this,new LugaresDeInteresAppModel(this.modelObject,this.modelObject.paisDondeEstoy.getTercerLugarDeInteres )).open ])
 		]     
 	}

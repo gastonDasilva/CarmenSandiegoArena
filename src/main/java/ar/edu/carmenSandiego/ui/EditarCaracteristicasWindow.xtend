@@ -1,6 +1,5 @@
 package ar.edu.carmenSandiego.ui
 
-import AplicationModel.PaisAppModel
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.layout.VerticalLayout
@@ -14,9 +13,9 @@ import org.uqbar.arena.widgets.TextBox
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.windows.Dialog
 
-class EditarCaracteristicasWindow extends Dialog<PaisAppModel> {
+class EditarCaracteristicasWindow extends Dialog<CrearEditarPaisAppModel> {
 	
-	new(WindowOwner owner, PaisAppModel model) {
+	new(WindowOwner owner, CrearEditarPaisAppModel model) {
 		super(owner, model)
 		title= "Editar Caracteristicas"
 	}

@@ -49,6 +49,7 @@ class ViajarWindow extends Dialog<ResolverMisterioAppModel>{
 		new Button(botonPanel) => [
 			caption = "Viajar"
 			onClick([| this.modelObject.viajar(this.modelObject.paisSeleccionado)
+						//this.modelObject.setearNombreLugares(this.modelObject.paisSeleccionado)
 				       this.close	])
 			bindEnabled(elementSelected)	       
 		]

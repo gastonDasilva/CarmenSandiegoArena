@@ -14,7 +14,9 @@ import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.List
 import org.uqbar.arena.bindings.PropertyAdapter
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-
+import org.uqbar.arena.widgets.tables.Table
+import org.uqbar.arena.widgets.tables.Column
+import ar.gaston.carmenSanDiego.LugarDeInteres
 
 class MapamundiWindow extends  SimpleWindow<Mapamundi> {
 	
@@ -40,8 +42,8 @@ class MapamundiWindow extends  SimpleWindow<Mapamundi> {
 		new Label(panelDeListadoDePaises).text = "Paises"
 		new List<Pais>(panelDeListadoDePaises) => [
 				(items <=> "paises").adapter = new PropertyAdapter(Pais, "nombrePais")
-				height = 150
-	    		width = 130
+				height = 330
+	    		width = 90
 				value <=> "paisSeleccionado"
 				allowNull = true
 			]
@@ -82,16 +84,24 @@ class MapamundiWindow extends  SimpleWindow<Mapamundi> {
 		
 		new List(nombrePaisPanel) => [
 			items <=> "paisSeleccionado.caracteristicasDelPais"
-			width = 200
-			//bindValueToProperty("paisSeleccionado.caracteristicasDelPais")
+			width = 100
+			height = 120
 		]
-//		val tablaDeCaracteristicas = new Table<Pais>(nombrePaisPanel, Pais) => [
-//			items <=> "paisSeleccionado.caracteristicasDelPais"
-//		]
-//		new Column(tablaDeCaracteristicas)=>[
-//			bindContentsToProperty("caracteristicasDelPais")
-//			title = "Caracteristicas"
-//		]
+		
+		new Label(nombrePaisPanel).text = "Conexiones"
+		new List(nombrePaisPanel) => [
+			(items <=> "paisSeleccionado.paisConexiones").adapter = new PropertyAdapter(Pais, "nombrePais")
+			width = 100
+			height = 120
+		]
+		
+		new Label(nombrePaisPanel).text = "Lugares De Interes"
+		new List(nombrePaisPanel) => [
+			(items <=> "paisSeleccionado.lugaresDeInteres").adapter = new PropertyAdapter(LugarDeInteres, "nombreLugar")
+			width = 100
+			height = 120
+		]
+		
 		/*
 		new Label(nombrePaisPanel).text = "Conexiones"
 		val tablaDeConexiones = new Table<Pais>(nombrePaisPanel, Pais) => [

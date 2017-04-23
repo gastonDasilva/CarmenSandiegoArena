@@ -1,9 +1,7 @@
 package ar.edu.carmenSandiego.ui
 
-import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
-import AplicationModel.PaisAppModel
 import org.uqbar.arena.layout.VerticalLayout
 import ar.gaston.carmenSanDiego.Pais
 import org.uqbar.arena.widgets.List
@@ -15,10 +13,11 @@ import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Selector
 import org.uqbar.arena.layout.ColumnLayout
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.windows.Dialog
 
-class EditarConexionesWindow extends TransactionalDialog<PaisAppModel> {
+class EditarConexionesWindow extends Dialog<CrearEditarPaisAppModel> {
 	
-	new(WindowOwner owner, PaisAppModel model) {
+	new(WindowOwner owner, CrearEditarPaisAppModel model) {
 		super(owner, model)
 		title= "Editar Conexiones"
 	}
@@ -35,8 +34,8 @@ class EditarConexionesWindow extends TransactionalDialog<PaisAppModel> {
 	 	this.createGridActions(mainPanel)	
 		val selecPanel = new Panel(mainPanel).layout = new ColumnLayout(2)
 		new Selector<Pais>(selecPanel) => [
-			items <=> "paisConexionesPosibles"
-			value <=> "paisConexionSeleccionado"
+			(items <=> "paisConexionesPosibles").adapter = new PropertyAdapter(Pais, "nombrePais")
+			value <=> "paisConexionSelec"
 		]
 		val elementSelected = new NotNullObservable("paisConexionSelec")
 		new Button(selecPanel) => [

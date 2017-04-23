@@ -1,6 +1,6 @@
 package ar.edu.carmenSandiego.ui;
 
-import AplicationModel.PaisAppModel;
+import ar.edu.carmenSandiego.ui.CrearEditarPaisAppModel;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.uqbar.arena.bindings.NotNullObservable;
@@ -24,8 +24,8 @@ import org.uqbar.lacar.ui.model.ControlBuilder;
 import org.uqbar.lacar.ui.model.ListBuilder;
 
 @SuppressWarnings("all")
-public class EditarCaracteristicasWindow extends Dialog<PaisAppModel> {
-  public EditarCaracteristicasWindow(final WindowOwner owner, final PaisAppModel model) {
+public class EditarCaracteristicasWindow extends Dialog<CrearEditarPaisAppModel> {
+  public EditarCaracteristicasWindow(final WindowOwner owner, final CrearEditarPaisAppModel model) {
     super(owner, model);
     this.setTitle("Editar Caracteristicas");
   }
@@ -61,7 +61,7 @@ public class EditarCaracteristicasWindow extends Dialog<PaisAppModel> {
         it.setCaption("Agregar");
         final Action _function = new Action() {
           public void execute() {
-            PaisAppModel _modelObject = EditarCaracteristicasWindow.this.getModelObject();
+            CrearEditarPaisAppModel _modelObject = EditarCaracteristicasWindow.this.getModelObject();
             _modelObject.agregarCaracteristicaSelec();
           }
         };
@@ -83,7 +83,7 @@ public class EditarCaracteristicasWindow extends Dialog<PaisAppModel> {
         it.setCaption("Eliminar");
         final Action _function = new Action() {
           public void execute() {
-            PaisAppModel _modelObject = EditarCaracteristicasWindow.this.getModelObject();
+            CrearEditarPaisAppModel _modelObject = EditarCaracteristicasWindow.this.getModelObject();
             _modelObject.eliminarCaracteristicaSeleccionado();
           }
         };

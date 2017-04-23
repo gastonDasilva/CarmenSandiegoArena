@@ -194,8 +194,8 @@ public class ResolverMisterioWindow extends SimpleWindow<ResolverMisterioAppMode
       final Procedure1<Button> _function = new Procedure1<Button>() {
         public void apply(final Button it) {
           ResolverMisterioAppModel _modelObject = ResolverMisterioWindow.this.getModelObject();
-          String _nombrePrimerLugarDeInteres = _modelObject.getNombrePrimerLugarDeInteres();
-          it.setCaption(_nombrePrimerLugarDeInteres);
+          String _primerLugarNombre = _modelObject.getPrimerLugarNombre();
+          it.setCaption(_primerLugarNombre);
           final Action _function = new Action() {
             public void execute() {
               ResolverMisterioAppModel _modelObject = ResolverMisterioWindow.this.getModelObject();
@@ -218,8 +218,8 @@ public class ResolverMisterioWindow extends SimpleWindow<ResolverMisterioAppMode
       final Procedure1<Button> _function_1 = new Procedure1<Button>() {
         public void apply(final Button it) {
           ResolverMisterioAppModel _modelObject = ResolverMisterioWindow.this.getModelObject();
-          String _nombreSegundoLugarDeInteres = _modelObject.getNombreSegundoLugarDeInteres();
-          it.setCaption(_nombreSegundoLugarDeInteres);
+          String _segundoLugarNombre = _modelObject.getSegundoLugarNombre();
+          it.setCaption(_segundoLugarNombre);
           final Action _function = new Action() {
             public void execute() {
               ResolverMisterioAppModel _modelObject = ResolverMisterioWindow.this.getModelObject();
@@ -242,8 +242,8 @@ public class ResolverMisterioWindow extends SimpleWindow<ResolverMisterioAppMode
       final Procedure1<Button> _function_2 = new Procedure1<Button>() {
         public void apply(final Button it) {
           ResolverMisterioAppModel _modelObject = ResolverMisterioWindow.this.getModelObject();
-          String _nombreTercerLugarDeInteres = _modelObject.getNombreTercerLugarDeInteres();
-          it.setCaption(_nombreTercerLugarDeInteres);
+          String _tercerLugarNombre = _modelObject.getTercerLugarNombre();
+          it.setCaption(_tercerLugarNombre);
           final Action _function = new Action() {
             public void execute() {
               ResolverMisterioAppModel _modelObject = ResolverMisterioWindow.this.getModelObject();

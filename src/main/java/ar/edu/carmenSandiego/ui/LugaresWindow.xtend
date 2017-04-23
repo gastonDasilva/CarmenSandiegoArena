@@ -8,6 +8,7 @@ import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Label
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.layout.VerticalLayout
 
 class LugaresWindow extends Dialog<LugaresDeInteresAppModel> {
 	
@@ -23,8 +24,9 @@ class LugaresWindow extends Dialog<LugaresDeInteresAppModel> {
 			value <=> "lugar.nombreLugar"
 			fontSize = 13
 		]
-		new Label(form).text = this.modelObject.lugar.procesar
-		new Button(mainPanel) => [
+		val form2 = new Panel(mainPanel).layout = new VerticalLayout
+		new Label(form2).text = this.modelObject.lugar.procesar
+		new Button(form2) => [
 			caption = "Continuar"
 			onClick [|if(this.modelObject.lugar.hayInformante){
 						 this.modelObject.resM.agregarPaisRecorrido()
@@ -34,19 +36,23 @@ class LugaresWindow extends Dialog<LugaresDeInteresAppModel> {
 				         			this.modelObject.resM.agregarPaisAFallidos()
 				         			this.close
 				         		} else {
-				         				if(this.modelObject.lugar.hayVillanoEnElLugar){
-				         					this.modelObject.resM.agregarPaisRecorrido()
-				         					if(this.modelObject.resM.devolverTrueSiEsElMismoVillano){
-				         						new FinDelJuegoExitosoWindows(this,this.modelObject.resM).open
-				         					}else	{
-				         							  new FinDelJuegoFallidoWindows(this,this.modelObject.resM).open
-				         							}
-				         				}else{
-				         					this.modelObject.resM.agregarPaisRecorrido()
-				         					this.close
-				         					}	
-				         			   }
-				         }
+				         				 if(this.modelObject.lugar.hayVillanoEnElLugar){
+				         					 this.modelObject.resM.agregarPaisRecorrido()
+				         						if(this.modelObject.resM.ordenDeArrestoNoEmitida){
+				         						this.close
+				         							}else{
+				         								  if(this.modelObject.resM.devolverTrueSiEsElMismoVillano){
+				         										new FinDelJuegoExitosoWindows(this,this.modelObject.resM).open
+				         									    }else{
+				         							 		 		new FinDelJuegoFallidoWindows(this,this.modelObject).open
+				         										     }
+				         						         }
+				         				      }else{
+				         							this.modelObject.resM.agregarPaisRecorrido()
+				         							this.close
+				         				}	   }	
+				         	} 
+				                  	
 			]
 			setAsDefault
 			disableOnError		

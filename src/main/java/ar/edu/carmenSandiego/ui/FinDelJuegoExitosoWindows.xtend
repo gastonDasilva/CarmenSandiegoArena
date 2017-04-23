@@ -7,6 +7,7 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.layout.HorizontalLayout
 
 class FinDelJuegoExitosoWindows extends Dialog<ResolverMisterioAppModel> {
 	
@@ -16,12 +17,14 @@ class FinDelJuegoExitosoWindows extends Dialog<ResolverMisterioAppModel> {
 	
 	override protected createFormPanel(Panel mainPanel) {
 		title = this.modelObject.casoRandom.getNombreCaso+" - Resuelto"
-		val Panel botonPanel = new Panel(mainPanel)
-		botonPanel.layout = new VerticalLayout
-		new Label(botonPanel).text = "En Hora Buena!!!"
-		new Label(botonPanel).text = "ha detenido a "+ this.modelObject.villanoAArrestar.nombreVillano+ 
+		val Panel Panel = new Panel(mainPanel)
+		Panel.layout = new VerticalLayout
+		new Label(Panel).text = "En Hora Buena!!!"
+		new Label(Panel).text = "ha detenido a "+ this.modelObject.villanoAArrestar.nombreVillano+ 
 									 " y repuerado el objeto "+this.modelObject.casoRandom.objetoRobado
-		new Label(botonPanel).text = "Felicitaciones!!!"
+		new Label(Panel).text = "Felicitaciones!!!"
+		val Panel botonPanel = new Panel(mainPanel)
+		botonPanel.layout = new HorizontalLayout
 		new Button(botonPanel) => [
 			caption = "Disfrutar De Nuestra Victoria"
 			onClick([| this.close])

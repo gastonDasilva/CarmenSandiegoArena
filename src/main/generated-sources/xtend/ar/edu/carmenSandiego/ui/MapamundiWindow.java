@@ -4,6 +4,7 @@ import AplicationModel.Mapamundi;
 import ar.edu.carmenSandiego.ui.CrearEditarPaisAppModel;
 import ar.edu.carmenSandiego.ui.CrearPaisWindow;
 import ar.edu.carmenSandiego.ui.EditarPaisWindow;
+import ar.gaston.carmenSanDiego.LugarDeInteres;
 import ar.gaston.carmenSanDiego.Pais;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
@@ -61,8 +62,8 @@ public class MapamundiWindow extends SimpleWindow<Mapamundi> {
           Binding _spaceship = ArenaXtendExtensions.operator_spaceship(_items, "paises");
           PropertyAdapter _propertyAdapter = new PropertyAdapter(Pais.class, "nombrePais");
           _spaceship.setAdapter(_propertyAdapter);
-          it.setHeight(150);
-          it.setWidth(130);
+          it.setHeight(330);
+          it.setWidth(90);
           ObservableValue<Control, ControlBuilder> _value = it.<ControlBuilder>value();
           ArenaXtendExtensions.operator_spaceship(_value, "paisSeleccionado");
           it.allowNull(true);
@@ -140,10 +141,39 @@ public class MapamundiWindow extends SimpleWindow<Mapamundi> {
         public void apply(final List<Object> it) {
           ObservableItems<Selector<Object>, Object, ListBuilder<Object>> _items = it.items();
           ArenaXtendExtensions.operator_spaceship(_items, "paisSeleccionado.caracteristicasDelPais");
-          it.setWidth(200);
+          it.setWidth(100);
+          it.setHeight(120);
         }
       };
-      _xblockexpression = ObjectExtensions.<List<Object>>operator_doubleArrow(_list, _function_1);
+      ObjectExtensions.<List<Object>>operator_doubleArrow(_list, _function_1);
+      Label _label_3 = new Label(nombrePaisPanel);
+      _label_3.setText("Conexiones");
+      List<Object> _list_1 = new List<Object>(nombrePaisPanel);
+      final Procedure1<List<Object>> _function_2 = new Procedure1<List<Object>>() {
+        public void apply(final List<Object> it) {
+          ObservableItems<Selector<Object>, Object, ListBuilder<Object>> _items = it.items();
+          Binding _spaceship = ArenaXtendExtensions.operator_spaceship(_items, "paisSeleccionado.paisConexiones");
+          PropertyAdapter _propertyAdapter = new PropertyAdapter(Pais.class, "nombrePais");
+          _spaceship.setAdapter(_propertyAdapter);
+          it.setWidth(100);
+          it.setHeight(120);
+        }
+      };
+      ObjectExtensions.<List<Object>>operator_doubleArrow(_list_1, _function_2);
+      Label _label_4 = new Label(nombrePaisPanel);
+      _label_4.setText("Lugares De Interes");
+      List<Object> _list_2 = new List<Object>(nombrePaisPanel);
+      final Procedure1<List<Object>> _function_3 = new Procedure1<List<Object>>() {
+        public void apply(final List<Object> it) {
+          ObservableItems<Selector<Object>, Object, ListBuilder<Object>> _items = it.items();
+          Binding _spaceship = ArenaXtendExtensions.operator_spaceship(_items, "paisSeleccionado.lugaresDeInteres");
+          PropertyAdapter _propertyAdapter = new PropertyAdapter(LugarDeInteres.class, "nombreLugar");
+          _spaceship.setAdapter(_propertyAdapter);
+          it.setWidth(100);
+          it.setHeight(120);
+        }
+      };
+      _xblockexpression = ObjectExtensions.<List<Object>>operator_doubleArrow(_list_2, _function_3);
     }
     return _xblockexpression;
   }

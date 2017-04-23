@@ -1,10 +1,9 @@
 package ar.edu.carmenSandiego.ui;
 
-import AplicationModel.PaisAppModel;
+import ar.edu.carmenSandiego.ui.CrearEditarPaisAppModel;
 import ar.gaston.carmenSanDiego.Pais;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
-import org.uqbar.arena.aop.windows.TransactionalDialog;
 import org.uqbar.arena.bindings.NotNullObservable;
 import org.uqbar.arena.bindings.ObservableItems;
 import org.uqbar.arena.bindings.ObservableValue;
@@ -18,6 +17,7 @@ import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
+import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.xtend.ArenaXtendExtensions;
 import org.uqbar.lacar.ui.model.Action;
@@ -26,8 +26,8 @@ import org.uqbar.lacar.ui.model.ListBuilder;
 import org.uqbar.lacar.ui.model.bindings.Binding;
 
 @SuppressWarnings("all")
-public class EditarConexionesWindow extends TransactionalDialog<PaisAppModel> {
-  public EditarConexionesWindow(final WindowOwner owner, final PaisAppModel model) {
+public class EditarConexionesWindow extends Dialog<CrearEditarPaisAppModel> {
+  public EditarConexionesWindow(final WindowOwner owner, final CrearEditarPaisAppModel model) {
     super(owner, model);
     this.setTitle("Editar Conexiones");
   }
@@ -59,9 +59,11 @@ public class EditarConexionesWindow extends TransactionalDialog<PaisAppModel> {
     final Procedure1<Selector<Pais>> _function_1 = new Procedure1<Selector<Pais>>() {
       public void apply(final Selector<Pais> it) {
         ObservableItems<Selector<Pais>, Pais, ListBuilder<Pais>> _items = it.items();
-        ArenaXtendExtensions.operator_spaceship(_items, "paisConexionesPosibles");
+        Binding _spaceship = ArenaXtendExtensions.operator_spaceship(_items, "paisConexionesPosibles");
+        PropertyAdapter _propertyAdapter = new PropertyAdapter(Pais.class, "nombrePais");
+        _spaceship.setAdapter(_propertyAdapter);
         ObservableValue<Control, ControlBuilder> _value = it.<ControlBuilder>value();
-        ArenaXtendExtensions.operator_spaceship(_value, "paisConexionSeleccionado");
+        ArenaXtendExtensions.operator_spaceship(_value, "paisConexionSelec");
       }
     };
     ObjectExtensions.<Selector<Pais>>operator_doubleArrow(_selector, _function_1);
@@ -72,7 +74,7 @@ public class EditarConexionesWindow extends TransactionalDialog<PaisAppModel> {
         it.setCaption("Agregar");
         final Action _function = new Action() {
           public void execute() {
-            PaisAppModel _modelObject = EditarConexionesWindow.this.getModelObject();
+            CrearEditarPaisAppModel _modelObject = EditarConexionesWindow.this.getModelObject();
             _modelObject.agregarPaisConexionSelec();
           }
         };
@@ -94,7 +96,7 @@ public class EditarConexionesWindow extends TransactionalDialog<PaisAppModel> {
         it.setCaption("Eliminar");
         final Action _function = new Action() {
           public void execute() {
-            PaisAppModel _modelObject = EditarConexionesWindow.this.getModelObject();
+            CrearEditarPaisAppModel _modelObject = EditarConexionesWindow.this.getModelObject();
             _modelObject.eliminarPaisConexionSeleccionado();
           }
         };
