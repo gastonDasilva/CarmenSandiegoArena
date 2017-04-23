@@ -30,8 +30,8 @@ import org.uqbar.lacar.ui.model.bindings.Binding;
 
 @SuppressWarnings("all")
 public class MapamundiWindow extends SimpleWindow<Mapamundi> {
-  public MapamundiWindow(final WindowOwner owner) {
-    super(owner, new Mapamundi());
+  public MapamundiWindow(final WindowOwner owner, final Mapamundi model) {
+    super(owner, model);
   }
   
   public void createMainTemplate(final Panel mainPanel) {

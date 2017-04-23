@@ -3,8 +3,6 @@ package ar.edu.carmenSandiego.ui
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Button
-import AplicationModel.Mapamundi
-import ar.gaston.carmenSanDiego.Pais
 
 class CrearPaisWindow extends EditarPaisWindow {
 

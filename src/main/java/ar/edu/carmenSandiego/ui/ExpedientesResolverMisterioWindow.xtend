@@ -3,12 +3,12 @@ package ar.edu.carmenSandiego.ui
 
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
-
+import AplicationModel.ExpedientesAppModel
 
 class ExpedientesResolverMisterioWindow extends ExpedientesWindow {
 	
-	new(WindowOwner owner) {
-		super(owner)
+	new(WindowOwner owner,ExpedientesAppModel model) {
+		super(owner, model)
 	}
 	override defaultTitle() {
 		"Resolviendo Misterio - Expedientes"

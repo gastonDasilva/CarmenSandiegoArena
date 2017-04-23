@@ -20,17 +20,17 @@ class MenuDeAcciones extends MainWindow<MenuAccionesAppModel>{
 		new Button(selecPanel) => [
 			caption = "Resolver Misterio"
 			width = 100
-			onClick [ | new IniciarJuegoWindow(this).open ]
+			onClick [ | new IniciarJuegoWindow(this,this.modelObject.res).open ]
 		]
 		new Button(selecPanel) => [
 			caption = "Mapamundi"
 			width = 100
-			onClick [ | new MapamundiWindow(this).open ]
+			onClick [ | new MapamundiWindow(this,this.modelObject.map).open ]
 		]
 		new Button(selecPanel) => [
 			caption = "Expedientes"
 			width = 100
-			onClick [ | new ExpedientesWindow(this).open ]
+			onClick [ | new ExpedientesWindow(this, this.modelObject.exp).open ]
 		]
 	}
 	def static main(String[] args) {

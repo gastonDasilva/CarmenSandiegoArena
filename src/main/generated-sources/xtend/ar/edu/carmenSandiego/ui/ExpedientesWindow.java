@@ -1,7 +1,7 @@
 package ar.edu.carmenSandiego.ui;
 
+import AplicationModel.CrearEditarVillanoAppModel;
 import AplicationModel.ExpedientesAppModel;
-import AplicationModel.VillanoAppModel;
 import ar.edu.carmenSandiego.ui.CrearVillanoWindow;
 import ar.edu.carmenSandiego.ui.EditarVillanoWindow;
 import ar.gaston.carmenSanDiego.Villano;
@@ -12,7 +12,7 @@ import org.uqbar.arena.bindings.ObservableItems;
 import org.uqbar.arena.bindings.ObservableValue;
 import org.uqbar.arena.bindings.PropertyAdapter;
 import org.uqbar.arena.layout.ColumnLayout;
-import org.uqbar.arena.layout.HorizontalLayout;
+import org.uqbar.arena.layout.VerticalLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Control;
 import org.uqbar.arena.widgets.Label;
@@ -30,8 +30,8 @@ import org.uqbar.lacar.ui.model.bindings.Binding;
 
 @SuppressWarnings("all")
 public class ExpedientesWindow extends SimpleWindow<ExpedientesAppModel> {
-  public ExpedientesWindow(final WindowOwner owner) {
-    super(owner, new ExpedientesAppModel());
+  public ExpedientesWindow(final WindowOwner owner, final ExpedientesAppModel model) {
+    super(owner, model);
     String _defaultTitle = this.defaultTitle();
     this.setTitle(_defaultTitle);
   }
@@ -41,8 +41,8 @@ public class ExpedientesWindow extends SimpleWindow<ExpedientesAppModel> {
   }
   
   public void createMainTemplate(final Panel mainPanel) {
-    HorizontalLayout _horizontalLayout = new HorizontalLayout();
-    mainPanel.setLayout(_horizontalLayout);
+    VerticalLayout _verticalLayout = new VerticalLayout();
+    mainPanel.setLayout(_verticalLayout);
     final Panel contentPanel = new Panel(mainPanel);
     ColumnLayout _columnLayout = new ColumnLayout(2);
     contentPanel.setLayout(_columnLayout);
@@ -53,26 +53,25 @@ public class ExpedientesWindow extends SimpleWindow<ExpedientesAppModel> {
   public Button crearListadoVillanos(final Panel owner) {
     Button _xblockexpression = null;
     {
-      final Panel panelDeListadoDePaises = new Panel(owner);
-      HorizontalLayout _horizontalLayout = new HorizontalLayout();
-      panelDeListadoDePaises.setLayout(_horizontalLayout);
-      Label _label = new Label(panelDeListadoDePaises);
+      final Panel panelDeListadoDevillanos = new Panel(owner);
+      Label _label = new Label(panelDeListadoDevillanos);
       _label.setText("Villanos");
-      List<Villano> _list = new List<Villano>(panelDeListadoDePaises);
+      List<Villano> _list = new List<Villano>(panelDeListadoDevillanos);
       final Procedure1<List<Villano>> _function = new Procedure1<List<Villano>>() {
         public void apply(final List<Villano> it) {
           ObservableItems<Selector<Villano>, Villano, ListBuilder<Villano>> _items = it.items();
           Binding _spaceship = ArenaXtendExtensions.operator_spaceship(_items, "villanos");
           PropertyAdapter _propertyAdapter = new PropertyAdapter(Villano.class, "nombre");
           _spaceship.setAdapter(_propertyAdapter);
-          it.setHeight(150);
-          it.setWidth(130);
+          it.setHeight(330);
+          it.setWidth(90);
           ObservableValue<Control, ControlBuilder> _value = it.<ControlBuilder>value();
           ArenaXtendExtensions.operator_spaceship(_value, "villanoSeleccionado");
+          it.allowNull(true);
         }
       };
       ObjectExtensions.<List<Villano>>operator_doubleArrow(_list, _function);
-      _xblockexpression = this.crearBotoneraNuevoYEditar(owner);
+      _xblockexpression = this.crearBotoneraNuevoYEditar(panelDeListadoDevillanos);
     }
     return _xblockexpression;
   }
@@ -98,14 +97,13 @@ public class ExpedientesWindow extends SimpleWindow<ExpedientesAppModel> {
       Button _button_1 = new Button(owner);
       final Procedure1<Button> _function_1 = new Procedure1<Button>() {
         public void apply(final Button it) {
-          it.setCaption("nuevoPais");
+          it.setCaption("Nuevo Villano ");
           final Action _function = new Action() {
             public void execute() {
               ExpedientesWindow.this.nuevoVillano();
             }
           };
           it.onClick(_function);
-          it.<Object, ControlBuilder>bindEnabled(elementSelected);
         }
       };
       _xblockexpression = ObjectExtensions.<Button>operator_doubleArrow(_button_1, _function_1);
@@ -117,8 +115,8 @@ public class ExpedientesWindow extends SimpleWindow<ExpedientesAppModel> {
     List<String> _xblockexpression = null;
     {
       final Panel villanoSelecPanel = new Panel(panel);
-      ColumnLayout _columnLayout = new ColumnLayout(2);
-      villanoSelecPanel.setLayout(_columnLayout);
+      VerticalLayout _verticalLayout = new VerticalLayout();
+      villanoSelecPanel.setLayout(_verticalLayout);
       Label _label = new Label(villanoSelecPanel);
       _label.setText("Nombre:");
       Label _label_1 = new Label(villanoSelecPanel);
@@ -126,7 +124,7 @@ public class ExpedientesWindow extends SimpleWindow<ExpedientesAppModel> {
         public void apply(final Label it) {
           ObservableValue<Control, ControlBuilder> _value = it.<ControlBuilder>value();
           ArenaXtendExtensions.operator_spaceship(_value, "villanoSeleccionado.nombre");
-          it.setFontSize(13);
+          it.setFontSize(10);
         }
       };
       ObjectExtensions.<Label>operator_doubleArrow(_label_1, _function);
@@ -143,28 +141,25 @@ public class ExpedientesWindow extends SimpleWindow<ExpedientesAppModel> {
       ObjectExtensions.<Label>operator_doubleArrow(_label_3, _function_1);
       Label _label_4 = new Label(villanoSelecPanel);
       _label_4.setText("Señas Particulares:");
-      final Panel señasPanel = new Panel(panel);
-      HorizontalLayout _horizontalLayout = new HorizontalLayout();
-      señasPanel.setLayout(_horizontalLayout);
-      List<String> _list = new List<String>(señasPanel);
+      List<String> _list = new List<String>(villanoSelecPanel);
       final Procedure1<List<String>> _function_2 = new Procedure1<List<String>>() {
         public void apply(final List<String> it) {
           ObservableItems<Selector<String>, String, ListBuilder<String>> _items = it.items();
           ArenaXtendExtensions.operator_spaceship(_items, "villanoSeleccionado.señasParticulares");
           it.setHeight(150);
-          it.setWidth(130);
+          it.setWidth(90);
         }
       };
       ObjectExtensions.<List<String>>operator_doubleArrow(_list, _function_2);
-      Label _label_5 = new Label(señasPanel);
+      Label _label_5 = new Label(villanoSelecPanel);
       _label_5.setText("Hobbies:");
-      List<String> _list_1 = new List<String>(señasPanel);
+      List<String> _list_1 = new List<String>(villanoSelecPanel);
       final Procedure1<List<String>> _function_3 = new Procedure1<List<String>>() {
         public void apply(final List<String> it) {
           ObservableItems<Selector<String>, String, ListBuilder<String>> _items = it.items();
           ArenaXtendExtensions.operator_spaceship(_items, "villanoSeleccionado.hobbies");
           it.setHeight(150);
-          it.setWidth(130);
+          it.setWidth(90);
         }
       };
       _xblockexpression = ObjectExtensions.<List<String>>operator_doubleArrow(_list_1, _function_3);
@@ -173,7 +168,10 @@ public class ExpedientesWindow extends SimpleWindow<ExpedientesAppModel> {
   }
   
   public void nuevoVillano() {
-    CrearVillanoWindow _crearVillanoWindow = new CrearVillanoWindow(this);
+    ExpedientesAppModel _modelObject = this.getModelObject();
+    Villano _villano = new Villano();
+    CrearEditarVillanoAppModel _crearEditarVillanoAppModel = new CrearEditarVillanoAppModel(_modelObject, _villano);
+    CrearVillanoWindow _crearVillanoWindow = new CrearVillanoWindow(this, _crearEditarVillanoAppModel);
     this.openDialog(_crearVillanoWindow);
   }
   
@@ -183,9 +181,10 @@ public class ExpedientesWindow extends SimpleWindow<ExpedientesAppModel> {
   
   public void editarVillano() {
     ExpedientesAppModel _modelObject = this.getModelObject();
-    Villano _villanoSeleccionado = _modelObject.getVillanoSeleccionado();
-    VillanoAppModel _villanoAppModel = new VillanoAppModel(_villanoSeleccionado);
-    EditarVillanoWindow _editarVillanoWindow = new EditarVillanoWindow(this, _villanoAppModel);
+    ExpedientesAppModel _modelObject_1 = this.getModelObject();
+    Villano _villanoSeleccionado = _modelObject_1.getVillanoSeleccionado();
+    CrearEditarVillanoAppModel _crearEditarVillanoAppModel = new CrearEditarVillanoAppModel(_modelObject, _villanoSeleccionado);
+    EditarVillanoWindow _editarVillanoWindow = new EditarVillanoWindow(this, _crearEditarVillanoAppModel);
     this.openDialog(_editarVillanoWindow);
   }
   

@@ -11,14 +11,16 @@ import ar.gaston.carmenSanDiego.Villano
 import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.windows.Dialog
-import AplicationModel.VillanoAppModel
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.layout.VerticalLayout
+import AplicationModel.CrearEditarVillanoAppModel
+
+
 class ExpedientesWindow extends SimpleWindow<ExpedientesAppModel> {
 	
-	new(WindowOwner owner) {
-		super(owner, new ExpedientesAppModel)
+	new(WindowOwner owner, ExpedientesAppModel model) {
+		super(owner, model)
 		title = defaultTitle
 	}
 	
@@ -26,7 +28,7 @@ class ExpedientesWindow extends SimpleWindow<ExpedientesAppModel> {
 		"Expedientes"
 	}
 	override def createMainTemplate(Panel mainPanel) {
-		mainPanel.layout = new HorizontalLayout
+		mainPanel.layout = new VerticalLayout
 		val Panel contentPanel = new Panel(mainPanel)
 		contentPanel.layout = new ColumnLayout(2)
 		this.crearListadoVillanos(contentPanel)
@@ -36,16 +38,16 @@ class ExpedientesWindow extends SimpleWindow<ExpedientesAppModel> {
 	
 	
 	def crearListadoVillanos(Panel owner) {
-		val Panel panelDeListadoDePaises = new Panel(owner)
-		panelDeListadoDePaises.layout = new HorizontalLayout
-		new Label(panelDeListadoDePaises).text = "Villanos"
-		new List<Villano>(panelDeListadoDePaises) => [
+		val Panel panelDeListadoDevillanos = new Panel(owner)
+		new Label(panelDeListadoDevillanos).text = "Villanos"
+		new List<Villano>(panelDeListadoDevillanos) => [
 				(items <=> "villanos").adapter = new PropertyAdapter(Villano, "nombre")
-				height = 150
-				width = 130
+				height = 330
+				width = 90
 				value <=> "villanoSeleccionado"
+				allowNull = true
 			]
-		this.crearBotoneraNuevoYEditar(owner)
+		this.crearBotoneraNuevoYEditar(panelDeListadoDevillanos)
 	}
 	
 	def crearBotoneraNuevoYEditar(Panel owner){
@@ -57,45 +59,42 @@ class ExpedientesWindow extends SimpleWindow<ExpedientesAppModel> {
 		]
 		
 		new Button(owner) => [
-			caption = "nuevoPais"
+			caption = "Nuevo Villano "
 			onClick([|this.nuevoVillano])
-			bindEnabled(elementSelected)
 		]
 		
 	}
 	
 	def crearEdicionDeVillanoSeleccionado(Panel panel) {
 		val Panel villanoSelecPanel = new Panel(panel)
-		villanoSelecPanel.layout = new ColumnLayout(2)
+		    villanoSelecPanel.layout = new VerticalLayout
 		new Label(villanoSelecPanel).text = "Nombre:"
 		new Label(villanoSelecPanel)=>[
 			value <=> "villanoSeleccionado.nombre"
-			fontSize = 13
+			fontSize = 10
 		]
 		new Label(villanoSelecPanel).text = "Sexo:"
 		new Label(villanoSelecPanel)=>[
 			value <=> "villanoSeleccionado.sexo"
 			fontSize = 13
-		]
+			]		
 		new Label(villanoSelecPanel).text = "Señas Particulares:"
-		val Panel señasPanel = new Panel(panel)
-		señasPanel.layout = new HorizontalLayout
-		new List<String>(señasPanel) => [
+		new List<String>(villanoSelecPanel) => [
 				(items <=> "villanoSeleccionado.señasParticulares")
 				height = 150
-				width = 130
+				width = 90
 			]
-		new Label(señasPanel).text = "Hobbies:"
-		new List<String>(señasPanel) => [
+		new Label(villanoSelecPanel).text = "Hobbies:"
+		new List<String>(villanoSelecPanel) => [
 				(items <=> "villanoSeleccionado.hobbies")
 				height = 150
-				width = 130
+				width = 90
 			]
 		
 	}
-	
+	 
 	def nuevoVillano() {
-			this.openDialog(new CrearVillanoWindow(this))
+		this.openDialog(new CrearVillanoWindow(this, new CrearEditarVillanoAppModel(this.modelObject, new Villano)))
 	}
 	
 	def openDialog(Dialog<?> dialog) {
@@ -103,7 +102,7 @@ class ExpedientesWindow extends SimpleWindow<ExpedientesAppModel> {
 	}
 	
 	def editarVillano() {
-		this.openDialog(new EditarVillanoWindow(this, new VillanoAppModel(modelObject.villanoSeleccionado)))
+		this.openDialog(new EditarVillanoWindow(this, new CrearEditarVillanoAppModel(this.modelObject, this.modelObject.villanoSeleccionado)))
 	}
 	
 	override protected addActions(Panel actionsPanel) {

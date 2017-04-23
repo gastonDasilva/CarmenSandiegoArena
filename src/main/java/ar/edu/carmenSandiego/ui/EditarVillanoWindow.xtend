@@ -1,6 +1,5 @@
 package ar.edu.carmenSandiego.ui
 
-import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.WindowOwner
 import AplicationModel.VillanoAppModel
@@ -8,13 +7,14 @@ import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.List
 import org.uqbar.arena.windows.Dialog
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-class EditarVillanoWindow extends TransactionalDialog<VillanoAppModel>  {
+import AplicationModel.CrearEditarVillanoAppModel
+
+class EditarVillanoWindow extends Dialog<CrearEditarVillanoAppModel>  {
 	
-		new(WindowOwner owner, VillanoAppModel model) {
+		new(WindowOwner owner, CrearEditarVillanoAppModel model) {
 		super(owner, model)
 		title = defaultTitle
 	}
@@ -27,13 +27,13 @@ class EditarVillanoWindow extends TransactionalDialog<VillanoAppModel>  {
 		val form = new Panel(mainPanel).layout = new ColumnLayout(2)
 		new Label(form).text = "Nombre:"
 		new TextBox(form) => [
-			value <=> "villanoSelec.nombre"
+			value <=> "vil.nombre"
 			width = 200	
 		]
 		
 		new Label(form).text = "Sexo:"
 		new TextBox(form) => [
-			value <=> "villanoSelec.sexo"
+			value <=> "vil.sexo"
 			width = 200	
 		]
 		
@@ -45,43 +45,42 @@ class EditarVillanoWindow extends TransactionalDialog<VillanoAppModel>  {
 			disableOnError	
 		]
 		
-		val Panel señasPanel = new Panel(mainPanel)
-		señasPanel.layout = new HorizontalLayout
-		new List<String>(señasPanel) => [
-				(items <=> "villanoSelec.señasParticulares")
-				height = 100
-				width = 90
+		/*val Panel señasPanel = new Panel(mainPanel)
+		señasPanel.layout = new VerticalLayout*/
+		new List<String>(mainPanel) => [
+				(items <=> "vil.señasParticulares")
+				height = 50
+				width = 30
 			]
-			
-		new Label(form).text = "Hobbies"
-		new Button(form) => [
+		
+		val form2 = new Panel(mainPanel).layout = new ColumnLayout(2)	
+		new Label(form2).text = "Hobbies"
+		new Button(form2) => [
 			caption = "Editar Hobbies"
 			onClick [|this.editarHobbies]
 			setAsDefault
 			disableOnError	
 		]
 		
-		new List<String>(señasPanel) => [
-				(items <=> "villanoSelec.hobbies")
-				height = 100
-				width = 90
+		new List<String>(mainPanel) => [
+				(items <=> "vil.hobbies")
+				height = 50
+				width = 30
 			]	
+		val Panel botonAceptarPanel = new Panel(mainPanel)	
+		this.botonAceptar(botonAceptarPanel)
+	}
+	
+	
+	def botonAceptar(Panel panel) {
+			new Button(panel) => [
+			caption = "Aceptar"
+			onClick [|this.modelObject.editarVillano
+					  this.close]
+		]
 	}
 	
 	override protected void addActions(Panel actions) {
-		new Button(actions) => [
-			caption = "Aceptar"
-			onClick [|this.accept]
-			setAsDefault
-			disableOnError	
-		]
-		
-		new Button(actions) => [
-			caption = "Cancelar"	
-			onClick [|
-				this.cancel
-			]
-		]
 	}
 	
 	def openDialog(Dialog<?> dialog) {
@@ -89,11 +88,11 @@ class EditarVillanoWindow extends TransactionalDialog<VillanoAppModel>  {
 	}
 	
 	def editarSeñasParticulares() {
-		this.openDialog(new EditarSenhasParticularesWindow(this, modelObject))
+		this.openDialog(new EditarSenhasParticularesWindow(this, new VillanoAppModel(modelObject.vil)))
 	}
 	
 	def editarHobbies() {
-			this.openDialog(new EditarHobbiesWindow(this, modelObject))
+			this.openDialog(new EditarHobbiesWindow(this, new VillanoAppModel(modelObject.vil)))
 	}
  }
 	

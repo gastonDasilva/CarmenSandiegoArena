@@ -1,6 +1,9 @@
 package ar.edu.carmenSandiego.ui;
 
+import AplicationModel.ExpedientesAppModel;
+import AplicationModel.Mapamundi;
 import AplicationModel.MenuAccionesAppModel;
+import AplicationModel.ResolverMisterioAppModel;
 import ar.edu.carmenSandiego.ui.ExpedientesWindow;
 import ar.edu.carmenSandiego.ui.IniciarJuegoWindow;
 import ar.edu.carmenSandiego.ui.MapamundiWindow;
@@ -33,7 +36,9 @@ public class MenuDeAcciones extends MainWindow<MenuAccionesAppModel> {
         it.setWidth(100);
         final Action _function = new Action() {
           public void execute() {
-            IniciarJuegoWindow _iniciarJuegoWindow = new IniciarJuegoWindow(MenuDeAcciones.this);
+            MenuAccionesAppModel _modelObject = MenuDeAcciones.this.getModelObject();
+            ResolverMisterioAppModel _res = _modelObject.getRes();
+            IniciarJuegoWindow _iniciarJuegoWindow = new IniciarJuegoWindow(MenuDeAcciones.this, _res);
             _iniciarJuegoWindow.open();
           }
         };
@@ -48,7 +53,9 @@ public class MenuDeAcciones extends MainWindow<MenuAccionesAppModel> {
         it.setWidth(100);
         final Action _function = new Action() {
           public void execute() {
-            MapamundiWindow _mapamundiWindow = new MapamundiWindow(MenuDeAcciones.this);
+            MenuAccionesAppModel _modelObject = MenuDeAcciones.this.getModelObject();
+            Mapamundi _map = _modelObject.getMap();
+            MapamundiWindow _mapamundiWindow = new MapamundiWindow(MenuDeAcciones.this, _map);
             _mapamundiWindow.open();
           }
         };
@@ -63,7 +70,9 @@ public class MenuDeAcciones extends MainWindow<MenuAccionesAppModel> {
         it.setWidth(100);
         final Action _function = new Action() {
           public void execute() {
-            ExpedientesWindow _expedientesWindow = new ExpedientesWindow(MenuDeAcciones.this);
+            MenuAccionesAppModel _modelObject = MenuDeAcciones.this.getModelObject();
+            ExpedientesAppModel _exp = _modelObject.getExp();
+            ExpedientesWindow _expedientesWindow = new ExpedientesWindow(MenuDeAcciones.this, _exp);
             _expedientesWindow.open();
           }
         };

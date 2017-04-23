@@ -12,6 +12,8 @@ import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.ColumnLayout
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.layout.VerticalLayout
+
 class EditarHobbiesWindow extends TransactionalDialog<VillanoAppModel> {
 	
 	new(WindowOwner owner, VillanoAppModel model) {
@@ -20,7 +22,7 @@ class EditarHobbiesWindow extends TransactionalDialog<VillanoAppModel> {
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
-		mainPanel.layout = new HorizontalLayout
+		mainPanel.layout = new VerticalLayout
 		new Label(mainPanel).text = "Hobbies"
 		new List<String>(mainPanel) => [
 				(items <=> "villanoSelec.hobbies")

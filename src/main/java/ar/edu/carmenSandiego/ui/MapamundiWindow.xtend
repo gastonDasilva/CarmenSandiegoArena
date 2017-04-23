@@ -13,18 +13,15 @@ import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.List
 import org.uqbar.arena.bindings.PropertyAdapter
-import org.uqbar.arena.widgets.tables.Table
-import org.uqbar.arena.widgets.tables.Column
-import ar.gaston.carmenSanDiego.LugarDeInteres
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import AplicationModel.PaisAppModel
+
 
 class MapamundiWindow extends  SimpleWindow<Mapamundi> {
 	
 
 	
-	new(WindowOwner owner) {
-		super(owner, new Mapamundi)
+	new(WindowOwner owner, Mapamundi model) {
+		super(owner, model)
 	}
 	override def createMainTemplate(Panel mainPanel) {
 		title = "Mapamundi"

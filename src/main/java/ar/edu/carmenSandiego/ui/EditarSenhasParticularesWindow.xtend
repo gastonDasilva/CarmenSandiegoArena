@@ -1,6 +1,5 @@
 package ar.edu.carmenSandiego.ui
 
-import org.uqbar.arena.aop.windows.TransactionalDialog
 import AplicationModel.VillanoAppModel
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.WindowOwner
@@ -12,7 +11,10 @@ import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.layout.ColumnLayout
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-class EditarSenhasParticularesWindow extends TransactionalDialog<VillanoAppModel> {
+import org.uqbar.arena.windows.Dialog
+import org.uqbar.arena.layout.VerticalLayout
+
+class EditarSenhasParticularesWindow extends Dialog<VillanoAppModel> {
 	
 	new(WindowOwner owner, VillanoAppModel model) {
 		super(owner, model)
@@ -20,7 +22,7 @@ class EditarSenhasParticularesWindow extends TransactionalDialog<VillanoAppModel
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
-		mainPanel.layout = new HorizontalLayout
+		mainPanel.layout = new VerticalLayout
 		new Label(mainPanel).text = "Seña"
 		new List<String>(mainPanel) => [
 				(items <=> "villanoSelec.señasParticulares")
@@ -40,7 +42,7 @@ class EditarSenhasParticularesWindow extends TransactionalDialog<VillanoAppModel
 	}
 	
 	def void createGridActions(Panel mainPanel) {
-		val elementSelected = new NotNullObservable("LugarDeInteresSeleccionadoASacar")
+		val elementSelected = new NotNullObservable("señaSeleccionadaASacar")
 		val actionsPanel = new Panel(mainPanel).layout = new HorizontalLayout
 		
 		new Button(actionsPanel) => [
@@ -56,13 +58,6 @@ class EditarSenhasParticularesWindow extends TransactionalDialog<VillanoAppModel
 			onClick [|this.accept]
 			setAsDefault
 			disableOnError	
-		]
-
-		new Button(actions) => [
-			caption = "Cancelar"	
-			onClick [|
-				this.cancel
-			]
 		]
 	}
 	
