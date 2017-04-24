@@ -18,6 +18,8 @@ import org.uqbar.arena.widgets.tables.Column
 import ar.gaston.carmenSanDiego.LugarDeInteres
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import AplicationModel.PaisAppModel
+import java.util.ArrayList
+import java.util.function.Consumer
 
 class MapamundiWindow extends  SimpleWindow<Mapamundi> {
 	
@@ -41,6 +43,7 @@ class MapamundiWindow extends  SimpleWindow<Mapamundi> {
 	def crearListadoPais(Panel owner) {
 		val Panel panelDeListadoDePaises = new Panel(owner)
 		new Label(panelDeListadoDePaises).text = "Paises"
+		
 		new List<Pais>(panelDeListadoDePaises) => [
 				(items <=> "paises").adapter = new PropertyAdapter(Pais, "nombrePais")
 				height = 150
@@ -74,6 +77,9 @@ class MapamundiWindow extends  SimpleWindow<Mapamundi> {
 		val Panel nombrePaisPanel = new Panel(owner)
 		nombrePaisPanel.layout = new VerticalLayout //ColumnLayout(2)
 		new Label(nombrePaisPanel).text = "Nombre:"
+		
+		
+		
 		new Label(nombrePaisPanel)=>[
 			value <=> "paisSeleccionado.nombrePais"
 			fontSize = 13
@@ -81,29 +87,29 @@ class MapamundiWindow extends  SimpleWindow<Mapamundi> {
 		
 		/*val Panel PaisPanel = new Panel(owner)
 		PaisPanel.layout = new VerticalLayout*/
+
 		new Label(nombrePaisPanel).text = "Caracteristicas"
-		
 		new List(nombrePaisPanel) => [
 			items <=> "paisSeleccionado.caracteristicasDelPais"
 			width = 200
 			//bindValueToProperty("paisSeleccionado.caracteristicasDelPais")
 		]
-//		val tablaDeCaracteristicas = new Table<Pais>(nombrePaisPanel, Pais) => [
-//			items <=> "paisSeleccionado.caracteristicasDelPais"
-//		]
-//		new Column(tablaDeCaracteristicas)=>[
-//			bindContentsToProperty("caracteristicasDelPais")
-//			title = "Caracteristicas"
-//		]
-		/*
+	
+		
 		new Label(nombrePaisPanel).text = "Conexiones"
-		val tablaDeConexiones = new Table<Pais>(nombrePaisPanel, Pais) => [
+		
+		new List(nombrePaisPanel) => [
 			items <=> "paisSeleccionado.paisConexiones"
+			width = 200
 		]
-		new Column(tablaDeConexiones)=>[
-			bindContentsToProperty("nombrePais")
-			title = "Conexiones"
-		]
+//		val tablaDeConexiones = new Table<Pais>(nombrePaisPanel, Pais) => [
+//			items <=> "paisSeleccionado.paisConexiones"
+//		]
+//		new Column(tablaDeConexiones)=>[
+//			bindContentsToProperty("nombrePais")
+//			title = "Conexiones"
+//		]
+		/*/
 		new Label(nombrePaisPanel).text = "Lugares De Interes"
 		val tablaDeLugares = new Table<LugarDeInteres>(nombrePaisPanel, LugarDeInteres) =>[
 			items <=> "paisSeleccionado.lugaresDeInteres"

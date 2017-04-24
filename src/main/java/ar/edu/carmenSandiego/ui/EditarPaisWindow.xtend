@@ -54,30 +54,36 @@ class EditarPaisWindow extends Dialog<CrearEditarPaisAppModel>{
 		
 		val form2 = new Panel(mainPanel).layout = new ColumnLayout(2)
 		new Label(form2).text = "Conexiones"
-//		new Button(form2) => [
-//			caption = "Editar Conexiones"
-//			onClick [|this.editarConexiones]
-//			setAsDefault
-//			disableOnError	
-//		]
+		new Button(form2) => [
+			caption = "Editar Conexiones"
+			onClick [|this.editarConexiones]
+			setAsDefault
+			disableOnError	
+		]
 		
 		//val ConexionesPanel = new Panel(mainPanel).layout = new VerticalLayout
-	 	val tablaDeConexiones = new Table<Pais>(mainPanel, Pais) => [
+		
+		new List<Pais>(mainPanel) => [
 			items <=> "pais.paisConexiones"
-		] 
-		new Column(tablaDeConexiones)=>[
-			title = "Conexiones"
-			bindContentsToProperty("nombrePais")
+			width = 80
+			height = 90
 		]
+//	 	val tablaDeConexiones = new Table<Pais>(mainPanel, Pais) => [
+//			items <=> "pais.paisConexiones"
+//		] 
+//		new Column(tablaDeConexiones)=>[
+//			title = "Conexiones"
+//			bindContentsToProperty("nombrePais")
+//		]
 		
 		val form3 = new Panel(mainPanel).layout = new ColumnLayout(2)
 		new Label(form3).text = "Lugares De Interes"
-//		new Button(form3) => [
-//			caption = "Editar Lugares"
-//			onClick [|this.editarLugaresDeInteres]
-//			setAsDefault
-//			disableOnError	
-//		]
+		new Button(form3) => [
+			caption = "Editar Lugares"
+			onClick [|this.editarLugaresDeInteres]
+			setAsDefault
+			disableOnError	
+		]
 		//val lugaresPanel = new Panel(mainPanel).layout = new VerticalLayout
 		val tablaDeLugares = new Table<LugarDeInteres>(mainPanel, LugarDeInteres) =>[
 			items <=> "pais.lugaresDeInteres"
@@ -112,18 +118,18 @@ class EditarPaisWindow extends Dialog<CrearEditarPaisAppModel>{
 	// ** Acciones
 	// ********************************************************
 	
-//	def editarLugaresDeInteres() {
-//		this.openDialog(new EditarLugaresDeInteresWindow(this, new PaisAppModel(modelObject.pais)))
-//	}
+	def editarLugaresDeInteres() {
+		this.openDialog(new EditarLugaresDeInteresWindow(this, new PaisAppModel(modelObject.pais)))
+	}
 	
 	def openDialog(Dialog<?> dialog) {
 		dialog.open
 	}
 	 
-//	def editarConexiones() {
-//		this.openDialog(new EditarConexionesWindow(this, new PaisAppModel(modelObject.pais)))
-//	}
-//	
+	def editarConexiones() {
+		this.openDialog(new EditarConexionesWindow(this, new PaisAppModel(modelObject.pais)))
+	}
+	
 	def editarCaracteristicas(){
 		this.openDialog(new EditarCaracteristicasWindow(this, new PaisAppModel(modelObject.pais)))
 	}

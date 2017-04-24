@@ -31,6 +31,7 @@ class EditarConexionesWindow extends TransactionalDialog<PaisAppModel> {
 				height = 150
 				width = 130
 				value <=> "paisConexionSelecASacar"
+				allowNull = true
 			]
 	 	this.createGridActions(mainPanel)	
 		val selecPanel = new Panel(mainPanel).layout = new ColumnLayout(2)
@@ -43,6 +44,7 @@ class EditarConexionesWindow extends TransactionalDialog<PaisAppModel> {
 			caption = "Agregar"
 			onClick([|this.modelObject.agregarPaisConexionSelec()])
 			bindEnabled(elementSelected)
+			
 		]
 		
 	}
