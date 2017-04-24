@@ -1,6 +1,5 @@
 package ar.edu.carmenSandiego.ui
 
-import AplicationModel.PaisAppModel
 import ar.gaston.carmenSanDiego.LugarDeInteres
 import ar.gaston.carmenSanDiego.Pais
 import org.uqbar.arena.layout.ColumnLayout
@@ -13,8 +12,8 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
-
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import AplicationModel.PaisAppModel
 
 class EditarPaisWindow extends Dialog<CrearEditarPaisAppModel>{
 
@@ -33,7 +32,7 @@ class EditarPaisWindow extends Dialog<CrearEditarPaisAppModel>{
 		
 		new TextBox(form) => [
 			value <=> "pais.nombrePais"
-			width = 200	
+			width = 50	
 		]
 		new Label(form).text = "Características"
  		
@@ -44,11 +43,10 @@ class EditarPaisWindow extends Dialog<CrearEditarPaisAppModel>{
 			disableOnError	
 			]
 		
-		//val caracteristicasPanel = new Panel(mainPanel).layout = new VerticalLayout
-				
+		//val caracteristicasPanel = new Panel(mainPanel).layout = new VerticalLayout		
 		new List<String>(mainPanel) => [
 				(items <=> "pais.caracteristicasDelPais")
-				height = 90
+				height = 60
 				width = 80
 				]
 		
@@ -59,6 +57,7 @@ class EditarPaisWindow extends Dialog<CrearEditarPaisAppModel>{
 			onClick [|this.editarConexiones]
 			setAsDefault
 			disableOnError	
+
 		]
 		
 		//val ConexionesPanel = new Panel(mainPanel).layout = new VerticalLayout
@@ -67,6 +66,7 @@ class EditarPaisWindow extends Dialog<CrearEditarPaisAppModel>{
 			items <=> "pais.paisConexiones"
 			width = 80
 			height = 90
+
 		]
 //	 	val tablaDeConexiones = new Table<Pais>(mainPanel, Pais) => [
 //			items <=> "pais.paisConexiones"
@@ -83,22 +83,25 @@ class EditarPaisWindow extends Dialog<CrearEditarPaisAppModel>{
 			onClick [|this.editarLugaresDeInteres]
 			setAsDefault
 			disableOnError	
-		]
+
+			]
+
+	
 		//val lugaresPanel = new Panel(mainPanel).layout = new VerticalLayout
 		val tablaDeLugares = new Table<LugarDeInteres>(mainPanel, LugarDeInteres) =>[
 			items <=> "pais.lugaresDeInteres"
-		]
+			]
 		new Column(tablaDeLugares)=>[
 			bindContentsToProperty("nombreLugar")
 			title = "Lugares De Interes"
-		]
+			]
 		this.botonAceptar(mainPanel)	
 		new Button(mainPanel) => [
 			caption = "Cancelar"	
 			onClick [|
 				this.cancel
+				]
 			]
-		]
 	}
 	def botonAceptar(Panel mainPanel){
 			new Button(mainPanel) => [
@@ -121,17 +124,20 @@ class EditarPaisWindow extends Dialog<CrearEditarPaisAppModel>{
 	def editarLugaresDeInteres() {
 		this.openDialog(new EditarLugaresDeInteresWindow(this, new PaisAppModel(modelObject.pais)))
 	}
+
 	
 	def openDialog(Dialog<?> dialog) {
 		dialog.open
 	}
 	 
 	def editarConexiones() {
-		this.openDialog(new EditarConexionesWindow(this, new PaisAppModel(modelObject.pais)))
+
+		this.openDialog(new EditarConexionesWindow(this, new PaisAppModel(this.modelObject.pais)))
+
 	}
 	
 	def editarCaracteristicas(){
-		this.openDialog(new EditarCaracteristicasWindow(this, new PaisAppModel(modelObject.pais)))
+		this.openDialog(new EditarCaracteristicasWindow(this, new PaisAppModel(this.modelObject.pais)))
 	}
 }	
 	

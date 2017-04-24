@@ -143,7 +143,19 @@ public class MapamundiWindow extends SimpleWindow<Mapamundi> {
           it.setWidth(200);
         }
       };
-      _xblockexpression = ObjectExtensions.<List<Object>>operator_doubleArrow(_list, _function_1);
+      ObjectExtensions.<List<Object>>operator_doubleArrow(_list, _function_1);
+      Label _label_3 = new Label(nombrePaisPanel);
+      _label_3.setText("Conexiones");
+      List<Object> _list_1 = new List<Object>(nombrePaisPanel);
+      final Procedure1<List<Object>> _function_2 = new Procedure1<List<Object>>() {
+        public void apply(final List<Object> it) {
+          ObservableItems<Selector<Object>, Object, ListBuilder<Object>> _items = it.items();
+          ArenaXtendExtensions.operator_spaceship(_items, "paisSeleccionado.paisConexiones");
+          it.setWidth(200);
+          it.allowNull(true);
+        }
+      };
+      _xblockexpression = ObjectExtensions.<List<Object>>operator_doubleArrow(_list_1, _function_2);
     }
     return _xblockexpression;
   }
