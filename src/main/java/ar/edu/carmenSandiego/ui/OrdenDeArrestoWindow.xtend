@@ -23,7 +23,7 @@ class OrdenDeArrestoWindow extends Dialog<ResolverMisterioAppModel> {
 		title = "Resolviendo:"+this.modelObject.casoRandom.getNombreCaso
 		val Panel panelPrincipal = new Panel(mainPanel)
 		panelPrincipal.layout = new VerticalLayout
-		new Label(panelPrincipal).text =this.modelObject.devolverNombreDeVillanoSiExiste
+		new Label(panelPrincipal).text ="Orden ya emitida:"
 		new Label(panelPrincipal)=>[
 			value <=> "villanoAArrestar.nombreVillano"
 			fontSize = 13

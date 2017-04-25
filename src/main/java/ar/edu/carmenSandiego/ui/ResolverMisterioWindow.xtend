@@ -44,7 +44,7 @@ class ResolverMisterioWindow extends SimpleWindow<ResolverMisterioAppModel>{
 			caption = "Orden De Arresto"
 			onClick([| new OrdenDeArrestoWindow(this,this.modelObject ).open ])
 		]
-		new Label(botonPanel).text =this.modelObject.devolverNombreDeVillanoSiExiste
+		new Label(botonPanel).text ="Orden ya emitida:"
 		new Label(botonPanel)=>[
 			value <=> "villanoAArrestar.nombreVillano"
 			fontSize = 13
