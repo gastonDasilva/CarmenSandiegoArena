@@ -8,6 +8,7 @@ import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.HorizontalLayout
 import AplicationModel.LugaresDeInteresAppModel
+import java.awt.Color
 
 class FinDelJuegoFallidoWindows  extends Dialog<LugaresDeInteresAppModel>{
 	
@@ -19,7 +20,12 @@ class FinDelJuegoFallidoWindows  extends Dialog<LugaresDeInteresAppModel>{
 	    title = this.modelObject.resM.casoRandom.getNombreCaso+" - Resuelto"
 	    val Panel panel = new Panel(mainPanel)
 		panel.layout = new VerticalLayout
-		new Label(panel).text = "Malas noticias :("
+		val text = new Label(panel).text = "Malas noticias :("
+		text =>[
+			foreground =Color.RED
+			
+			]
+		
 		new Label(panel).text = "ha detenido a "+ this.modelObject.lugar.getVillano.nombreVillano+ 
 									 ",  pero usted tenia una orden de arresto contra "
 									   +this.modelObject.resM.villanoAArrestar.nombreVillano+

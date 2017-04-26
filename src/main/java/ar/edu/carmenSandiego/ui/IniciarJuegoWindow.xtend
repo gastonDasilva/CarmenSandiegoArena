@@ -26,7 +26,11 @@ class IniciarJuegoWindow extends SimpleWindow<ResolverMisterioAppModel> {
 		new Button(botonPanel) => [
 			caption = "Aceptar el Caso"
 			width = 100
-			onClick [ | new ResolverMisterioWindow(this, this.modelObject).open ]
+			onClick [ | this.close
+				new ResolverMisterioWindow(this, this.modelObject).open
+				
+			]
+			
 		]
 		
 	}

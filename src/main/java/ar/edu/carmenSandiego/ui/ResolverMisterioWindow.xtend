@@ -51,7 +51,9 @@ class ResolverMisterioWindow extends SimpleWindow<ResolverMisterioAppModel>{
 		]
 		new Button(botonPanel) => [
 			caption = "Viajar"
-			onClick([| new ViajarWindow(this,this.modelObject ).open ])
+			onClick([|
+				new ViajarWindow(this,this.modelObject ).open
+			])
 		]     
 		new Button(botonPanel) => [
 			caption = "Expedientes"

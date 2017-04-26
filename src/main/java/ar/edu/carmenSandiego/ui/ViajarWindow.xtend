@@ -39,18 +39,23 @@ class ViajarWindow extends Dialog<ResolverMisterioAppModel>{
 			]
 		val Panel botonPanel = new Panel(mainPanel)
 		botonPanel.layout = new HorizontalLayout	
+		val element = new NotNullObservable("paisAnterior")
 		new Button(botonPanel) => [
 			caption = "Volver Al Pais Anterior"
 			onClick([| this.modelObject.volverAlPaisAnterior
-				       this.close	
+				       this.close
+				       //agragado por mi
+				      // new ResolverMisterioWindow(this, this.modelObject).open	
 			])
+			bindEnabled(element)
 		]
 		val elementSelected = new NotNullObservable("paisSeleccionado")
 		new Button(botonPanel) => [
 			caption = "Viajar"
 			onClick([| this.modelObject.viajar(this.modelObject.paisSeleccionado)
 						//this.modelObject.setearNombreLugares(this.modelObject.paisSeleccionado)
-				       this.close	])
+				       this.close
+				       ])
 			bindEnabled(elementSelected)	       
 		]
 	}
